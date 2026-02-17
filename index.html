@@ -100,37 +100,41 @@
     const baseUrl = "https://leandrebatts29-ai.github.io/emubooyyys/";
 
     function loadGame(system, relativePath) {
+        console.log("Loading System:", system); // Helps you debug in the F12 console
+        
         document.getElementById('game-modal').style.display = 'block';
         document.getElementById('emulator-holder').innerHTML = '<div id="game"></div>';
 
+        // 1. Map to your preferred cores
         const coreMap = {
             'nes': 'fceumm',
             'snes': 'snes9x',
             'genesis': 'genesis_plus_gx',
             'sega32x': 'picodrive',
-            'mame2003_plus': 'mame2003_plus'
+            'mame': 'mame2003plus' 
         };
 
-        // SYSTEM-SPECIFIC CONTROLS
+        // 2. Define System-Specific Buttons
         let buttons = {};
         
         if (system === 'nes') {
             buttons = { '0': 'B', '1': 'A', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
         } 
-        if (system === 'snes') {
+        else if (system === 'snes') {
             buttons = { '0': 'B', '1': 'A', '2': 'Y', '3': 'X', '4': 'L', '5': 'R', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
         } 
-        if (system === 'genesis' || system === 'sega32x') {
+        else if (system === 'genesis' || system === 'sega32x') {
+            // Updated Genesis/32X Map
             buttons = { '0': 'B', '1': 'C', '2': 'A', '3': 'X', '4': 'Y', '5': 'Z', '8': 'Mode', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
         }
-        if (system === 'mame2003_plus') {
-            // Arcade Mapping: 0-3 are main action buttons. 8 is Coin (Insert Coin), 9 is P1 Start.
+        else if (system === 'mame') {
+            // MAME 2003 Plus specific mapping
             buttons = { 
                 '0': 'Button 1', 
                 '1': 'Button 2', 
                 '2': 'Button 3', 
                 '3': 'Button 4', 
-                '8': 'Insert Coin', 
+                '8': 'Coin', 
                 '9': 'Start', 
                 '12': 'Up', 
                 '13': 'Down', 
@@ -139,12 +143,19 @@
             };
         }
 
+        // 3. Apply EmulatorJS Variables
         window.EJS_player = '#game';
-        window.EJS_core = coreMap[system];
+        window.EJS_core = coreMap[system] || 'fceumm';
         window.EJS_gameUrl = baseUrl + relativePath;
         window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
         window.EJS_buttons = buttons; 
 
+        // 4. Force specific settings for Arcade to prevent the menu pop-up
+        if (system === 'mame') {
+            window.EJS_startOnLoaded = true; // Auto-starts game
+        }
+
+        // 5. Load Script
         let script = document.createElement('script');
         script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
         document.head.appendChild(script);
