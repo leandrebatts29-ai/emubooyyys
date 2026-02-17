@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Old Vidja G*mes</title>
+    <style>
+        body { 
+            background: #1a1a1a; 
+            color: white; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            margin: 0;
+            padding: 20px;
+        }
+        h1 { color: #ffcc00; text-shadow: 2px 2px #000; }
+        
+        /* The Game Display Area */
+        #game-container { 
+            width: 100%; 
+            max-width: 800px; 
+            height: 600px; 
+            margin: 20px auto; 
+            background: #000; 
+            border: 4px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Organizing the buttons into a nice grid */
+        .menu { 
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 10px;
+        }
+
+        button { 
+            padding: 12px; 
+            background: #444; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            transition: background 0.2s;
+            font-weight: bold;
+        }
+
+        button:hover { background: #666; border-bottom: 2px solid #ffcc00; }
+        button:active { background: #222; }
+
+        .system-label { 
+            grid-column: 1 / -1; 
+            text-align: left; 
+            border-bottom: 1px solid #444; 
+            margin-top: 20px;
+            color: #aaa;
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎮 My Video Game Library</h1>
+
+    <div class="menu">
+        <div class="system-label">Nintendo Entertainment System</div>
+        <button onclick="loadGame('nes', 'https://leandrebatts29-ai.github.io/emubooyyys/nes/Action 52 (USA) (Rev A) (Unl).nes')">Action 52</button>
+        
+        <div class="system-label">Sega 32X</div>
+        <button onclick="loadGame('sega32x', 'https://leandrebatts29-ai.github.io/emubooyyys/32x/Knuckles_ Chaotix (1995)(Sega)(JP-US)(en).bin')">Knuckles' Chaotix</button>
+        
+        <div class="system-label">Arcade</div>
+        <button onclick="loadGame('mame2003', 'https://leandrebatts29-ai.github.io/emubooyyys/arcade/pacman.zip')">Pac-Man</button>
+        
+        </div>
+
+    <div id="game-container">
+        <div id="game">
+            <p style="padding-top: 250px; color: #666;">Select a game above to start playing</p>
+        </div>
+    </div>
+
+    <script>
+        function loadGame(system, url) {
+            // 1. Clear the container
+            document.getElementById('game').innerHTML = '';
+            
+            // 2. Map system nicknames to actual EmulatorJS core names
+            const coreMap = {
+                'nes': 'fceumm',
+                'snes': 'snes9x',
+                'genesis': 'genesis_plus_gx',
+                'sega32x': 'picodrive',
+                'mame2003': 'mame2003'
+            };
+
+            // 3. Set up the EmulatorJS Global Variables
+            window.EJS_player = '#game';
+            window.EJS_core = coreMap[system]; 
+            window.EJS_gameUrl = url; 
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            
+            // 4. Clean up any existing loader script to allow switching games
+            const oldScript = document.getElementById('ejs-loader');
+            if (oldScript) oldScript.remove();
+
+            // 5. Create and inject the loader script
+            let script = document.createElement('script');
+            script.id = 'ejs-loader';
+            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            document.head.appendChild(script);
+        }
+    </script>
+</body>
+</html>
