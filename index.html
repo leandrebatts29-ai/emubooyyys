@@ -102,36 +102,54 @@
 </div>
 
 <script>
+    // Force the correct base URL
+    const repoBase = "https://leandrebatts29-ai.github.io/emubooyyys/";
+
     function launch(sys, romPath) {
-        // Show the modal
+        // 1. Immediately show modal and nuke the old player
         document.getElementById('game-modal').style.display = 'block';
-        
-        // Wipe the container clean to ensure a fresh start
-        document.getElementById('game-container').innerHTML = '<div id="ejs-instance"></div>';
+        const container = document.getElementById('game-container');
+        container.innerHTML = '<div id="ejs-instance"></div>';
 
-        // Set the core based on the system name
-        var core = "fceumm"; // Default to NES
-        if (sys === 'snes') { core = "snes9x"; }
-        if (sys === 'genesis') { core = "genesis_plus_gx"; }
-        if (sys === 'sega32x') { core = "picodrive"; }
-        if (sys === 'mame') { core = "mame2003plus"; }
+        // 2. Strict Variable Assignment (No defaults allowed)
+        let coreToUse = "";
+        let buttonLayout = {};
 
-        // Core variables for EmulatorJS
+        if (sys === 'nes') {
+            coreToUse = 'fceumm';
+            buttonLayout = { '0': 'B', '1': 'A', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
+        } else if (sys === 'snes') {
+            coreToUse = 'snes9x';
+            buttonLayout = { '0': 'B', '1': 'A', '2': 'Y', '3': 'X', '4': 'L', '5': 'R', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
+        } else if (sys === 'genesis' || sys === 'sega32x') {
+            coreToUse = (sys === 'genesis') ? 'genesis_plus_gx' : 'picodrive';
+            buttonLayout = { '0': 'B', '1': 'C', '2': 'A', '3': 'X', '4': 'Y', '5': 'Z', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
+        } else if (sys === 'mame') {
+            coreToUse = 'mame2003plus';
+            buttonLayout = { '0': 'Button 1', '1': 'Button 2', '8': 'Coin', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
+        }
+
+        // 3. Set Global Variables for EmulatorJS
         window.EJS_player = '#ejs-instance';
-        window.EJS_core = core;
-        window.EJS_gameUrl = "https://leandrebatts29-ai.github.io/emubooyyys/" + romPath;
+        window.EJS_core = coreToUse;
+        window.EJS_gameUrl = repoBase + romPath;
         window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+        window.EJS_buttons = buttonLayout;
         window.EJS_startOnLoaded = true;
 
-        // Load the external emulator engine
-        var script = document.createElement('script');
-        script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-        document.head.appendChild(script);
+        // 4. Inject the Loader with a unique ID to prevent cache issues
+        const oldLoader = document.getElementById('ejs-loader-script');
+        if (oldLoader) oldLoader.remove();
+
+        const loader = document.createElement('script');
+        loader.id = 'ejs-loader-script';
+        loader.src = 'https://cdn.emulatorjs.org/stable/data/loader.js?timestamp=' + new Date().getTime();
+        document.head.appendChild(loader);
     }
 
     function quit() {
-        // A full page reload is the only way to clear the emulator safely
-        window.location.reload();
+        // This is the ONLY way to clear EmulatorJS memory and variables 100%
+        window.location.href = window.location.pathname + "?t=" + new Date().getTime();
     }
 </script>
 </body>
