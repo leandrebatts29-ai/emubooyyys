@@ -102,40 +102,35 @@
 </div>
 
 <script>
-    // Ensure this URL matches your GitHub exactly
-    const repoBase = "https://leandrebatts29-ai.github.io/emubooyyys/";
-
     function launch(sys, romPath) {
-        // 1. Show the window
+        // Show the modal
         document.getElementById('game-modal').style.display = 'block';
         
-        // 2. Clear the old game instance
-        const container = document.getElementById('game-container');
-        container.innerHTML = '<div id="ejs-instance"></div>';
+        // Wipe the container clean to ensure a fresh start
+        document.getElementById('game-container').innerHTML = '<div id="ejs-instance"></div>';
 
-        // 3. Simple Core Logic
-        let core = "";
-        if (sys === 'nes') core = 'fceumm';
-        else if (sys === 'snes') core = 'snes9x';
-        else if (sys === 'genesis') core = 'genesis_plus_gx';
-        else if (sys === 'sega32x') core = 'picodrive';
-        else if (sys === 'mame') core = 'mame2003plus';
+        // Set the core based on the system name
+        var core = "fceumm"; // Default to NES
+        if (sys === 'snes') { core = "snes9x"; }
+        if (sys === 'genesis') { core = "genesis_plus_gx"; }
+        if (sys === 'sega32x') { core = "picodrive"; }
+        if (sys === 'mame') { core = "mame2003plus"; }
 
-        // 4. Set the Global Variables
+        // Core variables for EmulatorJS
         window.EJS_player = '#ejs-instance';
         window.EJS_core = core;
-        window.EJS_gameUrl = repoBase + romPath;
+        window.EJS_gameUrl = "https://leandrebatts29-ai.github.io/emubooyyys/" + romPath;
         window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
         window.EJS_startOnLoaded = true;
 
-        // 5. Load the Emulator Engine
-        const script = document.createElement('script');
+        // Load the external emulator engine
+        var script = document.createElement('script');
         script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
         document.head.appendChild(script);
     }
 
     function quit() {
-        // Simple reload to reset the site
+        // A full page reload is the only way to clear the emulator safely
         window.location.reload();
     }
 </script>
