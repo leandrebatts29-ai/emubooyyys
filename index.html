@@ -96,48 +96,63 @@
         <div id="emulator-holder"></div>
     </div>
 
-    <script>
-        const baseUrl = "https://leandrebatts29-ai.github.io/emubooyyys/";
+<script>
+    const baseUrl = "https://leandrebatts29-ai.github.io/emubooyyys/";
 
-        function loadGame(system, relativePath) {
-            document.getElementById('game-modal').style.display = 'block';
-            document.getElementById('emulator-holder').innerHTML = '<div id="game"></div>';
+    function loadGame(system, relativePath) {
+        document.getElementById('game-modal').style.display = 'block';
+        document.getElementById('emulator-holder').innerHTML = '<div id="game"></div>';
 
-            const coreMap = {
-                'nes': 'fceumm',
-                'snes': 'snes9x',
-                'genesis': 'genesis_plus_gx',
-                'sega32x': 'picodrive',
-                'mame2003_plus': 'mame2003_plus'
+        const coreMap = {
+            'nes': 'fceumm',
+            'snes': 'snes9x',
+            'genesis': 'genesis_plus_gx',
+            'sega32x': 'picodrive',
+            'mame2003_plus': 'mame2003_plus'
+        };
+
+        // SYSTEM-SPECIFIC CONTROLS
+        let buttons = {};
+        
+        if (system === 'nes') {
+            buttons = { '0': 'B', '1': 'A', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
+        } 
+        else if (system === 'snes') {
+            buttons = { '0': 'B', '1': 'A', '2': 'Y', '3': 'X', '4': 'L', '5': 'R', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
+        } 
+        else if (system === 'genesis' || system === 'sega32x') {
+            buttons = { '0': 'B', '1': 'C', '2': 'A', '3': 'X', '4': 'Y', '5': 'Z', '8': 'Mode', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
+        }
+        else if (system === 'mame2003_plus') {
+            // Arcade Mapping: 0-3 are main action buttons. 8 is Coin (Insert Coin), 9 is P1 Start.
+            buttons = { 
+                '0': 'Button 1', 
+                '1': 'Button 2', 
+                '2': 'Button 3', 
+                '3': 'Button 4', 
+                '8': 'Insert Coin', 
+                '9': 'Start', 
+                '12': 'Up', 
+                '13': 'Down', 
+                '14': 'Left', 
+                '15': 'Right' 
             };
-
-            // SYSTEM-SPECIFIC CONTROLS
-            let buttons = {};
-            if (system === 'nes') {
-                buttons = { '0': 'B', '1': 'A', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
-            } else if (system === 'snes') {
-                buttons = { '0': 'B', '1': 'A', '2': 'Y', '3': 'X', '4': 'L', '5': 'R', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
-            } else if (system === 'genesis' || system === 'sega32x') {
-                buttons = { '0': 'B', '1': 'C', '2': 'A', '3': 'X', '4': 'Y', '5': 'Z', '8': 'Mode', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
-            }
-
-            window.EJS_player = '#game';
-            window.EJS_core = coreMap[system];
-            window.EJS_gameUrl = baseUrl + relativePath;
-            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-            window.EJS_buttons = buttons; // Injecting the specific layout
-
-            let script = document.createElement('script');
-            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-            document.head.appendChild(script);
         }
 
-        function closeGame() {
-            document.getElementById('game-modal').style.display = 'none';
-            document.getElementById('emulator-holder').innerHTML = '';
-            // Refresh page logic to stop sound/script if needed
-            location.reload(); 
-        }
-    </script>
+        window.EJS_player = '#game';
+        window.EJS_core = coreMap[system];
+        window.EJS_gameUrl = baseUrl + relativePath;
+        window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+        window.EJS_buttons = buttons; 
+
+        let script = document.createElement('script');
+        script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+        document.head.appendChild(script);
+    }
+
+    function closeGame() {
+        location.reload(); 
+    }
+</script>
 </body>
 </html>
