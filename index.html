@@ -117,13 +117,13 @@
         if (system === 'nes') {
             buttons = { '0': 'B', '1': 'A', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
         } 
-        else if (system === 'snes') {
+        if (system === 'snes') {
             buttons = { '0': 'B', '1': 'A', '2': 'Y', '3': 'X', '4': 'L', '5': 'R', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
         } 
-        else if (system === 'genesis' || system === 'sega32x') {
+        if (system === 'genesis' || system === 'sega32x') {
             buttons = { '0': 'B', '1': 'C', '2': 'A', '3': 'X', '4': 'Y', '5': 'Z', '8': 'Mode', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
         }
-        else if (system === 'mame2003_plus') {
+        if (system === 'mame2003_plus') {
             // Arcade Mapping: 0-3 are main action buttons. 8 is Coin (Insert Coin), 9 is P1 Start.
             buttons = { 
                 '0': 'Button 1', 
