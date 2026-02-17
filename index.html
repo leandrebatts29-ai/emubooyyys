@@ -74,6 +74,23 @@
         <button onclick="loadGame('nes', 'nes/Zelda%20II%20-%20The%20Adventure%20of%20Link%20(USA).nes')">Zelda II: the Adventure of Link</button>
     </div>
 
+    <div class="menu">
+        <div class="system-label">Super Nintendo</div>
+        <button onclick="loadGame('snes', 'snes/Donkey%20Kong%20Country%20(USA)%20(Rev%202).sfc')">Donkey Kong Country</button>
+        <button onclick="loadGame('snes', 'snes/Donkey%20Kong%20Country%202%20-%20Diddy_s%20Kong%20Quest%20(USA)%20(En,Fr)%20(Rev%201).sfc')">DKC 2</button>
+        <button onclick="loadGame('snes', 'snes/Donkey%20Kong%20Country%203%20-%20Dixie%20Kong_s%20Double%20Trouble!%20(USA)%20(En,Fr).sfc')">DKC 3</button>
+        <button onclick="loadGame('snes', 'snes/Kirby_s%20Avalanche%20(USA).sfc')">Kirby's Avalanche</button>
+        <button onclick="loadGame('snes', 'snes/Kirby_s%20Dream%20Course%20(USA).sfc')">Kirby's Dream Course</button>
+        <button onclick="loadGame('snes', 'snes/Kirby_s%20Dream%20Land%203%20(USA).sfc')">Kirby's Dream Land 3</button>
+        <button onclick="loadGame('snes', 'snes/Mario%20Is%20Missing!%20(USA).sfc')">Mario is Missing!</button>
+        <button onclick="loadGame('snes', 'snes/Super%20Mario%20All-Stars%20(USA).sfc')">Super Mario All-Stars</button>
+        <button onclick="loadGame('snes', 'snes/Super%20Mario%20Kart%20(USA).sfc')">Super Mario Kart</button>
+        <button onclick="loadGame('snes', 'snes/Super%20Mario%20RPG%20-%20Legend%20of%20the%20Seven%20Stars%20(USA).sfc')">Super Mario RPG</button>
+        <button onclick="loadGame('snes', 'snes/Super%20Mario%20World%20(USA).sfc')">Super Mario World</button>
+        <button onclick="loadGame('snes', 'snes/Super%20Mario%20World%202%20-%20Yoshi_s%20Island%20(USA).sfc')">Yoshi's Island</button>
+
+        </div>
+
     <div id="game-modal">
         <button class="close-btn" onclick="closeGame()">Close Game ✖</button>
         <div id="emulator-holder"></div>
@@ -94,10 +111,21 @@
                 'mame2003_plus': 'mame2003_plus'
             };
 
+            // SYSTEM-SPECIFIC CONTROLS
+            let buttons = {};
+            if (system === 'nes') {
+                buttons = { '0': 'B', '1': 'A', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
+            } else if (system === 'snes') {
+                buttons = { '0': 'B', '1': 'A', '2': 'Y', '3': 'X', '4': 'L', '5': 'R', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
+            } else if (system === 'genesis' || system === 'sega32x') {
+                buttons = { '0': 'B', '1': 'C', '2': 'A', '3': 'X', '4': 'Y', '5': 'Z', '8': 'Mode', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
+            }
+
             window.EJS_player = '#game';
             window.EJS_core = coreMap[system];
             window.EJS_gameUrl = baseUrl + relativePath;
             window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            window.EJS_buttons = buttons; // Injecting the specific layout
 
             let script = document.createElement('script');
             script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
