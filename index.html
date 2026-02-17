@@ -114,51 +114,46 @@
         });
     });
 
-    function loadGame(system, relativePath) {
-        // Reset Modal and Holder
-        document.getElementById('game-modal').style.display = 'block';
-        const holder = document.getElementById('emulator-holder');
-        holder.innerHTML = '<div id="game"></div>';
+function launch(sys, romPath) {
+    // 1. Reset everything
+    document.getElementById('game-modal').style.display = 'block';
+    const container = document.getElementById('game-container');
+    container.innerHTML = '<div id="ejs-instance"></div>';
 
-        // 1. Rigorous Core Selection
-        let selectedCore = '';
-        if (system === 'nes') selectedCore = 'fceumm';
-        else if (system === 'snes') selectedCore = 'snes9x';
-        else if (system === 'genesis') selectedCore = 'genesis_plus_gx';
-        else if (system === 'sega32x') selectedCore = 'picodrive';
-        else if (system === 'mame') selectedCore = 'mame2003_plus';
+    // 2. Clear out any old EmulatorJS global variables to prevent "ghosting"
+    window.EJS_core = null;
+    window.EJS_gameUrl = null;
+    window.EJS_buttons = null;
 
-        // 2. System-Specific Buttons (Strict Mapping)
-        let buttons = {};
-        if (system === 'nes') {
-            buttons = { '0': 'B', '1': 'A', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
-        } else if (system === 'snes') {
-            buttons = { '0': 'B', '1': 'A', '2': 'Y', '3': 'X', '4': 'L', '5': 'R', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
-        } else if (system === 'genesis' || system === 'sega32x') {
-            buttons = { '0': 'B', '1': 'C', '2': 'A', '3': 'X', '4': 'Y', '5': 'Z', '8': 'Mode', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
-        } else if (system === 'mame') {
-            // MAME 2003+ often uses Button 1 as Start in these mini-games
-            buttons = { '0': 'Button 1', '1': 'Button 2', '8': 'Coin', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
-        }
+    // 3. Set the Core strictly
+    let core = "";
+    if (sys === 'nes') core = 'fceumm';
+    else if (sys === 'snes') core = 'snes9x';
+    else if (sys === 'genesis') core = 'genesis_plus_gx';
+    else if (sys === 'sega32x') core = 'picodrive';
+    else if (sys === 'mame') core = 'mame2003plus';
 
-        // 3. Set Global Config
-        window.EJS_player = '#game';
-        window.EJS_core = selectedCore;
-        window.EJS_gameUrl = baseUrl + relativePath;
-        window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-        window.EJS_buttons = buttons;
-        window.EJS_startOnLoaded = true; // Attempt to bypass menus
+    // 4. Set the Controls strictly
+    let btns = {};
+    if (sys === 'nes') btns = { '0': 'B', '1': 'A', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
+    else if (sys === 'snes') btns = { '0': 'B', '1': 'A', '2': 'Y', '3': 'X', '4': 'L', '5': 'R', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
+    else if (sys === 'genesis' || sys === 'sega32x') btns = { '0': 'B', '1': 'C', '2': 'A', '3': 'X', '4': 'Y', '5': 'Z', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
+    else if (sys === 'mame') btns = { '0': 'Button 1', '1': 'Button 2', '8': 'Coin', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
 
-        // 4. Clean Load Script (with cache buster)
-        const oldScript = document.getElementById('ejs-loader');
-        if (oldScript) oldScript.remove();
+    // 5. Apply Globals
+    window.EJS_player = '#ejs-instance';
+    window.EJS_core = core;
+    window.EJS_gameUrl = "https://leandrebatts29-ai.github.io/emubooyyys/" + romPath;
+    window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+    window.EJS_buttons = btns;
+    window.EJS_startOnLoaded = true;
 
-        let script = document.createElement('script');
-        script.id = 'ejs-loader';
-        script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js?v=' + Date.now();
-        document.head.appendChild(script);
-    }
-
+    // 6. Force reload the script every single time
+    const loader = document.createElement('script');
+    loader.src = 'https://cdn.emulatorjs.org/stable/data/loader.js?v=' + Date.now();
+    document.head.appendChild(loader);
+}
+    
     function closeGame() {
         // Because of the control persistence issue, a hard reload is the 
         // only 100% reliable way to swap systems/controls in the browser.
