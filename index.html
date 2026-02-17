@@ -23,7 +23,7 @@
 </head>
 <body>
 
-    </h1>Classics Library</h1>
+    <h1>Classics Library</h1>
 
     <div class="menu">
         <div class="system-label">Sega 32X</div>
@@ -105,10 +105,10 @@
     // Force the correct base URL
     const repoBase = "https://leandrebatts29-ai.github.io/emubooyyys/";
 
-    function launch(sys, romPath) {
+    function loadgame(sys, romPath) {
         // 1. Immediately show modal and nuke the old player
         document.getElementById('game-modal').style.display = 'block';
-        const container = document.getElementById('game-container');
+        const container = document.getElementById('emulator-holder').innerHTML = '';
         container.innerHTML = '<div id="ejs-instance"></div>';
 
         // 2. Strict Variable Assignment (No defaults allowed)
@@ -147,8 +147,9 @@
         document.head.appendChild(loader);
     }
 
-    function quit() {
+    function closegame {
         // This is the ONLY way to clear EmulatorJS memory and variables 100%
+        document.getElementById('game-modal').style.display = 'none';
         window.location.href = window.location.pathname + "?t=" + new Date().getTime();
     }
 </script>
