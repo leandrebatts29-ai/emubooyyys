@@ -5,91 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Old Vidja G*mes</title>
     <style>
-        body { 
-            background: #1a1a1a; 
-            color: white; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            text-align: center; 
-            margin: 0;
-            padding: 20px;
-        }
-        h1 { color: #ffcc00; text-shadow: 2px 2px #000; }
+        body { background: #1a1a1a; color: white; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
+        h1 { color: #ffcc00; }
         
-        /* The Game Display Area */
-        #game-container { 
-            width: 100%; 
-            max-width: 800px; 
-            height: 600px; 
-            margin: 20px auto; 
-            background: #000; 
-            border: 4px solid #333;
-            border-radius: 8px;
-            overflow: hidden;
-        }
+        /* Grid Layout */
+        .menu { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; max-width: 1200px; margin: 0 auto; }
+        .system-label { grid-column: 1 / -1; text-align: left; border-bottom: 2px solid #333; margin-top: 30px; padding-bottom: 5px; color: #aaa; font-weight: bold; }
+        
+        button { padding: 12px; background: #333; color: white; border: 1px solid #444; border-radius: 5px; cursor: pointer; font-size: 14px; }
+        button:hover { background: #555; border-color: #ffcc00; }
 
-        /* Organizing the buttons into a nice grid */
-        .menu { 
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 10px;
-        }
-
-        button { 
-            padding: 12px; 
-            background: #444; 
-            color: white; 
-            border: none; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            transition: background 0.2s;
-            font-weight: bold;
-        }
-
-        button:hover { background: #666; border-bottom: 2px solid #ffcc00; }
-        button:active { background: #222; }
-
-        .system-label { 
-            grid-column: 1 / -1; 
-            text-align: left; 
-            border-bottom: 1px solid #444; 
-            margin-top: 20px;
-            color: #aaa;
-            font-size: 0.9em;
-            text-transform: uppercase;
-        }
+        /* POPUP MODAL STYLES */
+        #game-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; }
+        #emulator-holder { width: 100%; height: 100%; }
+        .close-btn { position: absolute; top: 10px; right: 20px; background: red; color: white; border: none; padding: 10px 15px; cursor: pointer; z-index: 1001; font-weight: bold; border-radius: 5px; }
     </style>
 </head>
 <body>
 
-    <h1></h1>Retro Library</h1>
+    </h1>Classics Library</h1>
 
     <div class="menu">
-        <div class="system-label">Nintendo Entertainment System</div>
-        <button onclick="loadGame('nes', 'https://leandrebatts29-ai.github.io/emubooyyys/nes/Action 52 (USA) (Rev A) (Unl).nes')">Action 52</button>
-        
         <div class="system-label">Sega 32X</div>
-        <button onclick="loadGame('sega32x', 'https://leandrebatts29-ai.github.io/emubooyyys/32x/Knuckles_ Chaotix (1995)(Sega)(JP-US)(en).bin')">Knuckles' Chaotix</button>
-        
-        <div class="system-label">Arcade</div>
-        <button onclick="loadGame('mame2003_plus', 'https://leandrebatts29-ai.github.io/emubooyyys/arcade/pacman.zip')">Pac-Man</button>
-        
-        </div>
+        <button onclick="loadGame('sega32x', '32x/Knuckles_%20Chaotix%20(1995)(Sega)(JP-US)(en).bin')">Knuckles’ Chaotix</button>
+        <button onclick="loadGame('sega32x', '32x/Tempo%20(1995)(Sega)(JP-US)(en).bin')">Tempo</button>
 
-    <div id="game-container">
-        <div id="game">
-            <p style="padding-top: 250px; color: #666;">Select a game above to start playing</p>
-        </div>
+        <div class="system-label">Arcade</div>
+        <button onclick="loadGame('mame2003_plus', 'arcade/frogger.zip')">Frogger</button>
+        <button onclick="loadGame('mame2003_plus', 'arcade/galaga.zip')">Galaga</button>
+        <button onclick="loadGame('mame2003_plus', 'arcade/invaders.zip')">Space Invaders</button>
+        <button onclick="loadGame('mame2003_plus', 'arcade/pacman.zip')">Pac-Man</button>
+        <button onclick="loadGame('mame2003_plus', 'arcade/sonic.zip')">SegaSonic the Hedgehog</button>
+        <button onclick="loadGame('mame2003_plus', 'arcade/soniccar.zip')">Waku Waku Sonic Patrol Car</button>
+        <button onclick="loadGame('mame2003_plus', 'arcade/sonicfgt.zip')">SegaSonic Cosmo Fighter</button>
+        <button onclick="loadGame('mame2003_plus', 'arcade/sonicpop.zip')">SegaSonic Popcorn Shop</button>
+
+        <div class="system-label">Sega Genesis</div>
+        <button onclick="loadGame('genesis', 'genesis/Bubsy%20in%20Claws%20Encounters%20of%20the%20Furred%20Kind%20(USA).md')">Bubsy in Claws Encounters of the Furred Kind</button>
+        <button onclick="loadGame('genesis', 'genesis/Disney_s%20Toy%20Story%20(USA).md')">Toy Story</button>
+        <button onclick="loadGame('genesis', 'genesis/Dr.%20Robotnik_s%20Mean%20Bean%20Machine%20(USA).md')">Dr. Robotnik's Mean Bean Machine</button>
+        <button onclick="loadGame('genesis', 'genesis/Garfield%20-%20Caught%20in%20the%20Act%20(USA).md')">Garfield: Caught in the Act</button>
+        <button onclick="loadGame('genesis', 'genesis/Mickey%20Mania%20-%20The%20Timeless%20Adventures%20of%20Mickey%20Mouse%20(USA).md')">Mickey Mania</button>
+        <button onclick="loadGame('genesis', 'genesis/Sonic%20&%20Knuckles%20(Blue%20Sphere)%20(USA)%20(Lock-on).md')">Blue Sphere</button>
+        <button onclick="loadGame('genesis', 'genesis/Sonic%20the%20Hedgehog%20(USA).md')">Sonic the Hedgehog </button>
+        <button onclick="loadGame('genesis', 'genesis/Sonic%20The%20Hedgehog%202%20(World).md')">Sonic the Hedgehog 2</button>
+        <button onclick="loadGame('genesis', 'genesis/Sonic%20&%20Knuckles%20(Sonic%20the%20Hedgehog%203%20&%20Knuckles)%20(USA)%20(Lock-on).md')">Sonic 3 & Knuckles</button>
+        <button onclick="loadGame('genesis', 'genesis/Sonic%20Spinball%20(USA).md')">Sonic Spinball</button>
+        <button onclick="loadGame('genesis', 'genesis/Sonic%203D%20Blast%20(USA).md')">Sonic 3D Blast</button>
+        <button onclick="loadGame('genesis', 'genesis/Sonic%203%20Complete%20(Sonic%20&%20Knuckles%20modification)%20(130810).md')">Sonic 3 Complete</button>
+        <button onclick="loadGame('genesis', 'genesis/Sonic%20Classic%20Heroes%20(Sonic%20the%20Hedgehog%202%20modification)%20(0.10.008a).md')">Sonic Classic Heroes</button>
+        <button onclick="loadGame('genesis', 'genesis/Sonic%201%20Megamix%20(Sonic%20the%20Hedgehog%20modification)%20(3.0).md')">Sonic Megamix</button>
+        <button onclick="loadGame('genesis', 'genesis/Sonic%20Delta%2040mb.bin')">Sonic Delta 40mb</button>
+
+        <div class="system-label">NES</div>
+        <button onclick="loadGame('nes', 'nes/Action%2052%20(USA)%20(Rev%20A)%20(Unl).nes')">Action 52</button>
+        <button onclick="loadGame('nes', 'nes/Balloon%20Fight%20(USA).nes')">Balloon Fight</button>
+        <button onclick="loadGame('nes', 'nes/Donkey%20Kong%20Classics%20(USA,%20Europe).nes')">Donkey Kong Classics</button>
+        <button onclick="loadGame('nes', 'nes/DuckTales%20(USA).nes')">DuckTales</button>
+        <button onclick="loadGame('nes', 'nes/Kirby_s%20Adventure%20(USA).nes')">Kirby’s Adventure</button>
+        <button onclick="loadGame('nes', 'nes/Legend%20of%20Zelda,%20The%20(USA).nes')">The Legend of Zelda</button>
+        <button onclick="loadGame('nes', 'nes/Mario%20Bros.%20(World).nes')">Mario Bros.</button>
+        <button onclick="loadGame('nes', 'nes/Mickey%20Mousecapade%20(USA).nes')">Mickey Mousecapade</button>
+        <button onclick="loadGame('nes', 'nes/Pac-Man%20(USA)%20(Namco).nes')">Pac-Man</button>
+        <button onclick="loadGame('nes', 'nes/Super%20Mario%20Bros.%20(World).nes')">Super Mario Bros.</button>
+        <button onclick="loadGame('nes', 'nes/Super%20Mario%20Bros.%202%20(USA).nes')">Super Mario Bros. 2</button>
+        <button onclick="loadGame('nes', 'nes/Super%20Mario%20Bros.%203%20(USA).nes')">Super Mario Bros. 3</button>
+        <button onclick="loadGame('nes', 'nes/Tetris%20(USA).nes')">Tetris</button>
+        <button onclick="loadGame('nes', 'nes/Zelda%20II%20-%20The%20Adventure%20of%20Link%20(USA).nes')">Zelda II: the Adventure of Link</button>
+    </div>
+
+    <div id="game-modal">
+        <button class="close-btn" onclick="closeGame()">Close Game ✖</button>
+        <div id="emulator-holder"></div>
     </div>
 
     <script>
-        function loadGame(system, url) {
-            // 1. Clear the container
-            document.getElementById('game').innerHTML = '';
-            
-            // 2. Map system nicknames to actual EmulatorJS core names
+        const baseUrl = "https://leandrebatts29-ai.github.io/emubooyyys/";
+
+        function loadGame(system, relativePath) {
+            document.getElementById('game-modal').style.display = 'block';
+            document.getElementById('emulator-holder').innerHTML = '<div id="game"></div>';
+
             const coreMap = {
                 'nes': 'fceumm',
                 'snes': 'snes9x',
@@ -98,21 +94,21 @@
                 'mame2003_plus': 'mame2003_plus'
             };
 
-            // 3. Set up the EmulatorJS Global Variables
             window.EJS_player = '#game';
-            window.EJS_core = coreMap[system]; 
-            window.EJS_gameUrl = url; 
+            window.EJS_core = coreMap[system];
+            window.EJS_gameUrl = baseUrl + relativePath;
             window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-            
-            // 4. Clean up any existing loader script to allow switching games
-            const oldScript = document.getElementById('ejs-loader');
-            if (oldScript) oldScript.remove();
 
-            // 5. Create and inject the loader script
             let script = document.createElement('script');
-            script.id = 'ejs-loader';
             script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
             document.head.appendChild(script);
+        }
+
+        function closeGame() {
+            document.getElementById('game-modal').style.display = 'none';
+            document.getElementById('emulator-holder').innerHTML = '';
+            // Refresh page logic to stop sound/script if needed
+            location.reload(); 
         }
     </script>
 </body>
