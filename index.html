@@ -31,14 +31,14 @@
         <button onclick="loadGame('sega32x', '32x/Tempo%20(1995)(Sega)(JP-US)(en).bin')">Tempo</button>
 
         <div class="system-label">Arcade</div>
-        <button onclick="loadGame('mame2003_plus', 'arcade/frogger.zip')">Frogger</button>
-        <button onclick="loadGame('mame2003_plus', 'arcade/galaga.zip')">Galaga</button>
-        <button onclick="loadGame('mame2003_plus', 'arcade/invaders.zip')">Space Invaders</button>
-        <button onclick="loadGame('mame2003_plus', 'arcade/pacman.zip')">Pac-Man</button>
-        <button onclick="loadGame('mame2003_plus', 'arcade/sonic.zip')">SegaSonic the Hedgehog</button>
-        <button onclick="loadGame('mame2003_plus', 'arcade/soniccar.zip')">Waku Waku Sonic Patrol Car</button>
-        <button onclick="loadGame('mame2003_plus', 'arcade/sonicfgt.zip')">SegaSonic Cosmo Fighter</button>
-        <button onclick="loadGame('mame2003_plus', 'arcade/sonicpop.zip')">SegaSonic Popcorn Shop</button>
+        <button onclick="loadGame('mame', 'arcade/frogger.zip')">Frogger</button>
+        <button onclick="loadGame('mame', 'arcade/galaga.zip')">Galaga</button>
+        <button onclick="loadGame('mame', 'arcade/invaders.zip')">Space Invaders</button>
+        <button onclick="loadGame('mame', 'arcade/pacman.zip')">Pac-Man</button>
+        <button onclick="loadGame('mame', 'arcade/sonic.zip')">SegaSonic the Hedgehog</button>
+        <button onclick="loadGame('mame', 'arcade/soniccar.zip')">Waku Waku Sonic Patrol Car</button>
+        <button onclick="loadGame('mame', 'arcade/sonicfgt.zip')">SegaSonic Cosmo Fighter</button>
+        <button onclick="loadGame('mame', 'arcade/sonicpop.zip')">SegaSonic Popcorn Shop</button>
 
         <div class="system-label">Sega Genesis</div>
         <button onclick="loadGame('genesis', 'genesis/Bubsy%20in%20Claws%20Encounters%20of%20the%20Furred%20Kind%20(USA).md')">Bubsy in Claws Encounters of the Furred Kind</button>
@@ -96,72 +96,72 @@
         <div id="emulator-holder"></div>
     </div>
 
+<div style="margin-bottom: 20px;">
+    <input type="text" id="gameSearch" placeholder="Search for a game..." 
+           style="padding: 10px; width: 80%; max-width: 400px; border-radius: 5px; border: 1px solid #444; background: #222; color: white;">
+</div>
+
 <script>
     const baseUrl = "https://leandrebatts29-ai.github.io/emubooyyys/";
 
+    // --- SEARCH LOGIC ---
+    document.getElementById('gameSearch').addEventListener('input', function(e) {
+        const term = e.target.value.toLowerCase();
+        const buttons = document.querySelectorAll('.menu button');
+        buttons.forEach(btn => {
+            const text = btn.textContent.toLowerCase();
+            btn.style.display = text.includes(term) ? "inline-block" : "none";
+        });
+    });
+
     function loadGame(system, relativePath) {
-        console.log("Loading System:", system); // Helps you debug in the F12 console
-        
+        // Reset Modal and Holder
         document.getElementById('game-modal').style.display = 'block';
-        document.getElementById('emulator-holder').innerHTML = '<div id="game"></div>';
+        const holder = document.getElementById('emulator-holder');
+        holder.innerHTML = '<div id="game"></div>';
 
-        // 1. Map to your preferred cores
-        const coreMap = {
-            'nes': 'fceumm',
-            'snes': 'snes9x',
-            'genesis': 'genesis_plus_gx',
-            'sega32x': 'picodrive',
-            'mame': 'mame2003plus' 
-        };
+        // 1. Rigorous Core Selection
+        let selectedCore = '';
+        if (system === 'nes') selectedCore = 'fceumm';
+        else if (system === 'snes') selectedCore = 'snes9x';
+        else if (system === 'genesis') selectedCore = 'genesis_plus_gx';
+        else if (system === 'sega32x') selectedCore = 'picodrive';
+        else if (system === 'mame') selectedCore = 'mame2003plus';
 
-        // 2. Define System-Specific Buttons
+        // 2. System-Specific Buttons (Strict Mapping)
         let buttons = {};
-        
         if (system === 'nes') {
             buttons = { '0': 'B', '1': 'A', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
-        } 
-        else if (system === 'snes') {
+        } else if (system === 'snes') {
             buttons = { '0': 'B', '1': 'A', '2': 'Y', '3': 'X', '4': 'L', '5': 'R', '8': 'Select', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
-        } 
-        else if (system === 'genesis' || system === 'sega32x') {
-            // Updated Genesis/32X Map
+        } else if (system === 'genesis' || system === 'sega32x') {
             buttons = { '0': 'B', '1': 'C', '2': 'A', '3': 'X', '4': 'Y', '5': 'Z', '8': 'Mode', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
-        }
-        else if (system === 'mame2003_plus') {
-            // MAME 2003 Plus specific mapping
-            buttons = { 
-                '0': 'Button 1', 
-                '1': 'Button 2', 
-                '2': 'Button 3', 
-                '3': 'Button 4', 
-                '8': 'Coin', 
-                '9': 'Start', 
-                '12': 'Up', 
-                '13': 'Down', 
-                '14': 'Left', 
-                '15': 'Right' 
-            };
+        } else if (system === 'mame') {
+            // MAME 2003+ often uses Button 1 as Start in these mini-games
+            buttons = { '0': 'Button 1', '1': 'Button 2', '8': 'Coin', '9': 'Start', '12': 'Up', '13': 'Down', '14': 'Left', '15': 'Right' };
         }
 
-        // 3. Apply EmulatorJS Variables
+        // 3. Set Global Config
         window.EJS_player = '#game';
-        window.EJS_core = coreMap[system] || 'fceumm';
+        window.EJS_core = selectedCore;
         window.EJS_gameUrl = baseUrl + relativePath;
         window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-        window.EJS_buttons = buttons; 
+        window.EJS_buttons = buttons;
+        window.EJS_startOnLoaded = true; // Attempt to bypass menus
 
-        // 4. Force specific settings for Arcade to prevent the menu pop-up
-        if (system === 'mame') {
-            window.EJS_startOnLoaded = true; // Auto-starts game
-        }
+        // 4. Clean Load Script (with cache buster)
+        const oldScript = document.getElementById('ejs-loader');
+        if (oldScript) oldScript.remove();
 
-        // 5. Load Script
         let script = document.createElement('script');
-        script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+        script.id = 'ejs-loader';
+        script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js?v=' + Date.now();
         document.head.appendChild(script);
     }
 
     function closeGame() {
+        // Because of the control persistence issue, a hard reload is the 
+        // only 100% reliable way to swap systems/controls in the browser.
         location.reload(); 
     }
 </script>
