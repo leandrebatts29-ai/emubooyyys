@@ -25,11 +25,6 @@
 
     <h1>G*mes that are significantly older than me but are still peak.</h1>
 
-    <div class="menu">
-        <div class="system-label">Sega 32X</div>
-        <button onclick="loadGame('sega32x', '32x/Knuckles_ Chaotix (1995)(Sega)(JP-US)(en).bin')">Knuckles’ Chaotix</button>
-        <button onclick="loadGame('sega32x', '32x/Tempo (1995)(Sega)(JP-US)(en).bin')">Tempo</button>
-
         <div class="system-label">Arcade</div>
         <button onclick="loadGame('mame', 'arcade/frogger.zip')">Frogger</button>
         <button onclick="loadGame('mame', 'arcade/galaga.zip')">Galaga</button>
@@ -54,6 +49,11 @@
         <button onclick="loadGame('genesis', 'genesis/Sonic 1 Megamix (Sonic the Hedgehog modification) (3.0).md')">Sonic Megamix</button>
         <button onclick="loadGame('genesis', 'genesis/Sonic Delta 40mb.bin')">Sonic Delta 40mb</button>
 
+        <div class="menu">
+        <div class="system-label">Sega 32X</div>
+        <button onclick="loadGame('sega32x', '32x/Knuckles_ Chaotix (1995)(Sega)(JP-US)(en).bin')">Knuckles’ Chaotix</button>
+        <button onclick="loadGame('sega32x', '32x/Tempo (1995)(Sega)(JP-US)(en).bin')">Tempo</button>
+
         <div class="system-label">NES</div>
         <button onclick="loadGame('nes', 'nes/Action 52 (USA) (Rev A) (Unl).nes')">Action 52</button>
         <button onclick="loadGame('nes', 'nes/Balloon Fight (USA).nes')">Balloon Fight</button>
@@ -71,8 +71,26 @@
         <button onclick="loadGame('nes', 'nes/Zelda II - The Adventure of Link (USA).nes')">Zelda II: the Adventure of Link</button>
     </div>
 
+<div class="system-label">Game Boy</div>
+<button onclick="loadGame('gb', 'g*meboy/Bubsy II (USA).gb')">Bubsy II</button>
+<button onclick="loadGame('gb', 'g*meboy/Donkey Kong (World) (Rev A) (SGB Enhanced).gb')">Donkey Kong</button>
+<button onclick="loadGame('gb', 'g*meboy/Dr. Mario (World).gb')">Dr. Mario</button>
+<button onclick="loadGame('gb', 'g*meboy/DuckTales (USA).gb')">DuckTales</button>
+<button onclick="loadGame('gb', 'g*meboy/DuckTales 2 (USA).gb')">DuckTales 2</button>
+<button onclick="loadGame('gb', 'g*meboy/Felix the Cat (USA, Europe).gb')">Felix the Cat</button>
+<button onclick="loadGame('gb', 'g*meboy/Game & Watch Gallery (USA) (Rev A) (SGB Enhanced).gb')">Game & Watch Gallery</button>
+<button onclick="loadGame('gb', 'g*meboy/Pac-Man (USA).gb')">Pac-Man</button>
+<button onclick="loadGame('gb', 'g*meboy/Pokemon - Blue Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Blue</button>
+<button onclick="loadGame('gb', 'g*meboy/Pokemon - Red Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Red</button>
+<button onclick="loadGame('gb', 'g*meboy/Pokemon - Yellow Version - Special Pikachu Edition (USA, Europe) (GBC,SGB Enhanced).gb')">Pokémon Yellow</button>
+<button onclick="loadGame('gb', 'g*meboy/Super Mario Land (World).gb')">Super Mario Land</button>
+<button onclick="loadGame('gb', 'g*meboy/Super Mario Land 2 - 6 Golden Coins (USA, Europe).gb')">Super Mario Land 2 - 6 Golden Coins</button>
+<button onclick="loadGame('gb', 'g*meboy/Tetris (World) (Rev A).gb')">Tetris</button>
+<button onclick="loadGame('gb', 'g*meboy/Wario Land - Super Mario Land 3 (World).gb')">Wario Land - Super Mario Land 3</button>
+<button onclick="loadGame('gb', 'g*meboy/Who Framed Roger Rabbit (USA).gb')">Who Framed Roger Rabbit</button>
+
     <div class="menu">
-        <div class="system-label">Super Nintendo</div>
+        <div class="system-label">SNES</div>
         <button onclick="loadGame('snes', 'snes/Donkey Kong Country (USA) (Rev 2).sfc')">Donkey Kong Country</button>
         <button onclick="loadGame('snes', 'snes/Donkey Kong Country 2 - Diddy_s Kong Quest (USA) (En,Fr) (Rev 1).sfc')">Donkey Kong Country 2: Diddy's Kong Quest</button>
         <button onclick="loadGame('snes', 'snes/Donkey Kong Country 3 - Dixie Kong_s Double Trouble! (USA) (En,Fr).sfc')">Donkey Kong Country 3: Dixie Kong's Double Trouble</button>
@@ -128,6 +146,9 @@ else if (sys === 'mame') {
 }
 else if (sys === 'fbneo') {
     coreToUse = 'fbneo';
+}
+else if (sys === 'gb') {
+    coreToUse = 'gambatte'; // EmulatorJS core for Game Boy
 }
 
 if (!coreToUse) {
