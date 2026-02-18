@@ -121,10 +121,11 @@
 
         </div>
 
-    <div id="game-modal">
-        <button class="close-btn" onclick="closeGame()">Close Game ✖</button>
-        <div id="emulator"></div>
-    </div>
+<div id="game-modal">
+    <button class="close-btn" onclick="closeGame()">Close Game ✖</button>
+    <!-- Add the container the launch() function expects -->
+    <div id="emulator-holder" style="position:absolute; inset:0;"></div>
+</div>
 
 <div id="game"></div>
 
