@@ -117,68 +117,147 @@
 </div>
 
 <script>
-    // Force the correct base URL
-    const repoBase = "https://leandrebatts29-ai.github.io/emubooyyys/";
+function launch(sys, romPath) {
 
-function loadGame(sys, romPath) {
-    document.getElementById('game-modal').style.display = 'block';
+  // ------------------------------------------------
+  // 1. SHOW MODAL + CLEAR OLD EMULATOR INSTANCE
+  // ------------------------------------------------
+  document.getElementById('game-modal').style.display = 'block';
+  const container = document.getElementById('emulator-holder');
+  container.innerHTML = '<div id="ejs-instance"></div>';
 
-const container = document.getElementById('emulator-holder');
-container.innerHTML = '';
+  // ------------------------------------------------
+  // 2. DETECT SYSTEM + CHOOSE CORE
+  // ------------------------------------------------
+  let coreToUse = "";
 
-    let coreToUse = "";
-    let buttonLayout = {};
+  if (sys === 'nes') coreToUse = 'fceumm';
+  else if (sys === 'snes') coreToUse = 'snes9x';
+  else if (sys === 'genesis') coreToUse = 'genesis_plus_gx';
+  else if (sys === 'sega32x') coreToUse = 'picodrive';
+  else if (sys === 'mame') coreToUse = 'mame2003plus';
+  else if (sys === 'gb') coreToUse = 'gambatte';
 
-if (sys === 'nes') {
-    coreToUse = 'fceumm';
-} 
-else if (sys === 'snes') {
-    coreToUse = 'snes9x';
-}
-else if (sys === 'genesis') {
-    coreToUse = 'genesis_plus_gx';
-}
-else if (sys === 'sega32x') {
-    coreToUse = 'picodrive';
-}
-else if (sys === 'mame') {
-    coreToUse = 'mame2003_plus';
-}
-else if (sys === 'fbneo') {
-    coreToUse = 'fbneo';
-}
-else if (sys === 'gb') {
-    coreToUse = 'gambatte'; // EmulatorJS core for Game Boy
-}
 
-if (!coreToUse) {
-alert("Core not assigned for system: " + sys);
-return;
-}
+  // ------------------------------------------------
+  // 3. DEFAULT CONTROLS PER SYSTEM
+  // ------------------------------------------------
 
-window.EJS_player = '#emulator-holder';
-window.EJS_core = coreToUse;
-window.EJS_gameUrl = repoBase + romPath;
-window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-window.EJS_buttons = buttonLayout;
-window.EJS_startOnLoaded = true;
-window.EJS_gameName = sys;   // ⭐ THIS FIXES YOUR PROBLEM
+  // --- ARCADE ---
+  if (sys === 'mame') {
+    window.EJS_defaultControls = {
+      "A": "z",
+      "B": "x",
+      "C": "c",
+      "D": "v",
+      "E": "b",
+      "F": "n",
+      "G": "m",
+      "UP": "arrowup",
+      "DOWN": "arrowdown",
+      "LEFT": "arrowleft",
+      "RIGHT": "arrowright",
+      "START": "enter",
+      "SELECT": "shift"   // coin
+    };
+  }
 
+  // --- GENESIS / 32X / SEGA CD ---
+  else if (sys === 'genesis' || sys === 'sega32x') {
+    window.EJS_defaultControls = {
+      "A": "z",
+      "B": "x",
+      "C": "c",
+      "X": "v",
+      "Y": "b",
+      "Z": "n",
+      "MODE": "shift",
+      "START": "enter",
+      "UP": "arrowup",
+      "DOWN": "arrowdown",
+      "LEFT": "arrowleft",
+      "RIGHT": "arrowright"
+    };
+
+    // force 6 button controller
     window.EJS_coreOptions = {
-  "genesis_plus_gx_controller_type": "6button"
-};
-window.EJS_coreOptions = {
-  "picodrive_input1": "6button"
-};
+      "genesis_plus_gx_controller_type": "6button",
+      "picodrive_input1": "6button"
+    };
+  }
+
+  // --- NES / GAME BOY ---
+  else if (sys === 'nes' || sys === 'gb' || sys === 'gba') {
+    window.EJS_defaultControls = {
+      "A": "z",
+      "B": "x",
+      "START": "enter",
+      "SELECT": "shift",
+      "UP": "arrowup",
+      "DOWN": "arrowdown",
+      "LEFT": "arrowleft",
+      "RIGHT": "arrowright"
+    };
+  }
+
+  // --- SNES ---
+  else if (sys === 'snes') {
+    window.EJS_defaultControls = {
+      "A": "z",
+      "B": "x",
+      "X": "c",
+      "Y": "v",
+      "L": "q",
+      "R": "w",
+      "START": "enter",
+      "SELECT": "shift",
+      "UP": "arrowup",
+      "DOWN": "arrowdown",
+      "LEFT": "arrowleft",
+      "RIGHT": "arrowright"
+    };
+  }
 
 
-const oldLoader = document.getElementById('ejs-loader-script');
-if (oldLoader) oldLoader.remove();
+  // ------------------------------------------------
+  // 4. GLOBAL HOTKEYS (ALL SYSTEMS)
+  // ------------------------------------------------
+  window.EJS_hotkeys = {
+    "fastForward": "f",
+    "rewind": "r",
+    "slowMotion": "e",
+    "saveState": "i",
+    "loadState": "k",
+    "nextStateSlot": "l"
+  };
 
-const loader = document.createElement('script');
-loader.id = 'ejs-loader-script';
-loader.src = 'https://cdn.emulatorjs.org/stable/data/loader.js?timestamp=' + Date.now();
-document.head.appendChild(loader);
+
+  // ------------------------------------------------
+  // 5. FORCE SEPARATE CONTROL PROFILE PER SYSTEM
+  // ------------------------------------------------
+  window.EJS_gameName = sys + "_controls_v1";
+
+
+  // ------------------------------------------------
+  // 6. EMULATOR CONFIG
+  // ------------------------------------------------
+  window.EJS_player = '#emulator-holder';
+  window.EJS_core = coreToUse;
+  window.EJS_gameUrl = repoBase + romPath;
+  window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+  window.EJS_startOnLoaded = true;
+
+
+  // ------------------------------------------------
+  // 7. LOAD EMULATORJS (ALWAYS LAST)
+  // ------------------------------------------------
+  const oldLoader = document.getElementById('ejs-loader-script');
+  if (oldLoader) oldLoader.remove();
+
+  const loader = document.createElement('script');
+  loader.id = 'ejs-loader-script';
+  loader.src = 'https://cdn.emulatorjs.org/stable/data/loader.js?t=' + Date.now();
+  document.head.appendChild(loader);
 }
 
 function closeGame() {
