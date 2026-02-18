@@ -141,7 +141,7 @@ return;
 window.EJS_player = '#ejs-instance';   // make sure this matches your injected div
 window.EJS_core = coreToUse;
 window.EJS_gameUrl = repoBase + romPath;
-window.EJS_pathtodata = 'https://cdn.emulatorjs.org/latest/data/';
+window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
 window.EJS_buttons = buttonLayout;
 window.EJS_startOnLoaded = true;
 
@@ -150,7 +150,7 @@ if (oldLoader) oldLoader.remove();
 
 const loader = document.createElement('script');
 loader.id = 'ejs-loader-script';
-loader.src = 'https://cdn.emulatorjs.org/latest/data/loader.js?timestamp=' + Date.now();
+loader.src = 'https://cdn.emulatorjs.org/stable/data/loader.js?timestamp=' + Date.now();
 document.head.appendChild(loader);
 }
 
