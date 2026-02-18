@@ -138,45 +138,25 @@ const repoBase = "https://leandrebatts29-ai.github.io/emubooyyys/";
 
     
 function launch(sys, romPath) {
-    document.getElementById('game-modal').style.display = 'block';
+    const modal = document.getElementById('game-modal');
+    modal.style.display = 'block';
 
-    // Set controls & options
-    if (sys === 'nes') window.EJS_defaultControls = { 
-    "A": "z",
-    "B": "x",
-    "START": "enter",
-    "SELECT": "shift",
-    "UP": "arrowup",
-    "DOWN": "arrowdown",
-    "LEFT": "arrowleft",
-    "RIGHT": "arrowright" };
+    // --- SYSTEM CONTROLS ---
+    if (sys === 'nes') window.EJS_defaultControls = {
+        "A": "z", "B": "x", "START": "enter", "SELECT": "shift",
+        "UP": "arrowup", "DOWN": "arrowdown", "LEFT": "arrowleft", "RIGHT": "arrowright"
+    };
     else if (sys === 'snes') window.EJS_defaultControls = {
-    "A": "z",
-    "B": "x",
-    "X": "c",
-    "Y": "v",
-    "L": "q",
-    "R": "w",
-    "START": "enter",
-    "SELECT": "shift",
-    "UP": "arrowup",
-    "DOWN": "arrowdown",
-    "LEFT": "arrowleft",
-    "RIGHT": "arrowright" };
+        "A": "z", "B": "x", "X": "c", "Y": "v",
+        "L": "q", "R": "w", "START": "enter", "SELECT": "shift",
+        "UP": "arrowup", "DOWN": "arrowdown", "LEFT": "arrowleft", "RIGHT": "arrowright"
+    };
     else if (sys === 'genesis' || sys === 'sega32x') {
         window.EJS_defaultControls = {
-    "A": "z",
-    "B": "x",
-    "C": "c",
-    "X": "v",
-    "Y": "b",
-    "Z": "n",
-    "MODE": "shift",
-    "START": "enter",
-    "UP": "arrowup",
-    "DOWN": "arrowdown",
-    "LEFT": "arrowleft",
-    "RIGHT": "arrowright" };
+            "A": "z","B": "x","C": "c","X": "v","Y": "b","Z": "n",
+            "MODE": "shift","START": "enter",
+            "UP": "arrowup","DOWN": "arrowdown","LEFT": "arrowleft","RIGHT": "arrowright"
+        };
         window.EJS_coreOptions = {
             "genesis_plus_gx_controller_type": "6button",
             "picodrive_input1": "6button"
@@ -195,20 +175,19 @@ function launch(sys, romPath) {
     "LEFT": "arrowleft",
     "RIGHT": "arrowright",
     "START": "enter",
-    "SELECT": "shift" 
-    };
+    "SELECT": "shift"};
     else if (sys === 'gb') window.EJS_defaultControls = {
-    "A": "z",
-    "B": "x",
-    "START": "enter",
-    "SELECT": "shift",
-    "UP": "arrowup",
-    "DOWN": "arrowdown",
-    "LEFT": "arrowleft",
-    "RIGHT": "arrowright"
+        "A": "z", "B": "x", "START": "enter", "SELECT": "shift",
+        "UP": "arrowup", "DOWN": "arrowdown", "LEFT": "arrowleft", "RIGHT": "arrowright"
+};
+
+    // --- GLOBAL HOTKEYS ---
+    window.EJS_hotkeys = {
+        "fastForward": "f", "rewind": "r", "slowMotion": "e",
+        "saveState": "i", "loadState": "k", "nextStateSlot": "l"
     };
 
-    // Other global config
+    // --- GAME CONFIG ---
     window.EJS_gameName = sys + "_controls_v1";
     window.EJS_core = (sys === 'nes') ? 'fceumm' :
                       (sys === 'snes') ? 'snes9x' :
@@ -220,12 +199,13 @@ function launch(sys, romPath) {
     window.EJS_player = '#emulator';
     window.EJS_startOnLoaded = true;
 
-    // Load the game
-    if (window.EJS && typeof window.EJS.loadGame === 'function') {
-        window.EJS.loadGame();
-    } else {
-        console.error("EmulatorJS not loaded yet!");
-    }
+    // --- WAIT FOR LOADER ---
+    const waitForEJS = setInterval(() => {
+        if (window.EJS && typeof window.EJS.loadGame === 'function') {
+            clearInterval(waitForEJS);
+            window.EJS.loadGame();
+        }
+    }, 50);
 }
 
 function closeGame() {
