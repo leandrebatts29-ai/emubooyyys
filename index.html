@@ -17,7 +17,6 @@
 
         /* POPUP MODAL STYLES */
         #game-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; }
-        #emulator-holder { width: 100%; height: 100%; }
         .close-btn { position: absolute; top: 10px; right: 20px; background: red; color: white; border: none; padding: 10px 15px; cursor: pointer; z-index: 1001; font-weight: bold; border-radius: 5px; }
     </style>
 </head>
@@ -108,8 +107,10 @@
 
     <div id="game-modal">
         <button class="close-btn" onclick="closeGame()">Close Game ✖</button>
-        <div id="emulator-holder"></div>
+        <div id="emulator"></div>
     </div>
+
+<div id="game"></div>
 
 <div style="margin-bottom: 20px;">
     <input type="text" id="gameSearch" placeholder="Search for a game..." 
@@ -126,8 +127,8 @@ function launch(sys, romPath) {
   // 1. SHOW MODAL + CLEAR OLD EMULATOR INSTANCE
   // ------------------------------------------------
   document.getElementById('game-modal').style.display = 'block';
-  const container = document.getElementById('emulator-holder');
-  container.innerHTML = '<div id="ejs-instance"></div>';
+ const container = document.getElementById('emulator');
+ container.innerHTML = "";
 
   // ------------------------------------------------
   // 2. DETECT SYSTEM + CHOOSE CORE
@@ -244,11 +245,11 @@ function launch(sys, romPath) {
   // ------------------------------------------------
   // 6. EMULATOR CONFIG
   // ------------------------------------------------
-  window.EJS_player = '#emulator-holder';
   window.EJS_core = coreToUse;
   window.EJS_gameUrl = repoBase + romPath;
   window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
   window.EJS_startOnLoaded = true;
+  window.EJS_player = '#emulator';
 
 
   // ------------------------------------------------
