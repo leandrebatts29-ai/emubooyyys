@@ -114,11 +114,25 @@ function loadGame(sys, romPath) {
     let coreToUse = "";
     let buttonLayout = {};
 
-    if (sys === 'nes') {
-        coreToUse = 'fceumm';
-        buttonLayout = { '0':'B','1':'A','8':'Select','9':'Start','12':'Up','13':'Down','14':'Left','15':'Right' };
-    } 
-    // etc...
+if (sys === 'nes') {
+    coreToUse = 'fceumm';
+} 
+else if (sys === 'snes') {
+    coreToUse = 'snes9x';
+}
+else if (sys === 'genesis') {
+    coreToUse = 'genesis_plus_gx';
+}
+else if (sys === 'sega32x') {
+    coreToUse = 'picodrive';
+}
+else if (sys === 'mame') {
+    coreToUse = 'mame2003plus';
+}
+if (!coreToUse) {
+    alert("Core not assigned for system: " + sys);
+    return;
+}
 
 window.EJS_player = '#ejs-instance';   // make sure this matches your injected div
 window.EJS_core = coreToUse;
