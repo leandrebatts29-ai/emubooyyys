@@ -123,8 +123,8 @@
 function loadGame(sys, romPath) {
     document.getElementById('game-modal').style.display = 'block';
 
-    const container = document.getElementById('emulator-holder');
-    container.innerHTML = '<div id="ejs-instance"></div>';
+const container = document.getElementById('emulator-holder');
+container.innerHTML = '';
 
     let coreToUse = "";
     let buttonLayout = {};
@@ -156,12 +156,21 @@ alert("Core not assigned for system: " + sys);
 return;
 }
 
-window.EJS_player = '#ejs-instance';   // make sure this matches your injected div
+window.EJS_player = '#emulator-holder';
 window.EJS_core = coreToUse;
 window.EJS_gameUrl = repoBase + romPath;
 window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
 window.EJS_buttons = buttonLayout;
 window.EJS_startOnLoaded = true;
+window.EJS_gameName = sys;   // ⭐ THIS FIXES YOUR PROBLEM
+
+    window.EJS_coreOptions = {
+  "genesis_plus_gx_controller_type": "6button"
+};
+window.EJS_coreOptions = {
+  "picodrive_input1": "6button"
+};
+
 
 const oldLoader = document.getElementById('ejs-loader-script');
 if (oldLoader) oldLoader.remove();
