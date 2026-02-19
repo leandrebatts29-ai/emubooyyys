@@ -228,21 +228,23 @@ function loadGame(system, url) {
     script.id = 'ejs-loader';
     script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
 
-    // Wait until the emulator is loaded
-    script.onload = () => {
-        const checkLoaded = setInterval(() => {
-            if (window.EJS_loaded) {
-                clearInterval(checkLoaded);
+  script.onload = () => {
+    const checkLoaded = setInterval(() => {
+        if (window.EJS_loaded) {
+            clearInterval(checkLoaded);
 
-                // Add fullscreen class AFTER the emulator is ready
-                container.classList.add('fullscreen');
-                closeBtn.style.display = 'block';
+            // Add fullscreen class AFTER the emulator is ready
+            container.classList.add('fullscreen');
+            closeBtn.style.display = 'block';
 
-                // Close button reloads page
-                closeBtn.onclick = () => location.reload();
-            }
-        }, 100); // check every 100ms
-    };
+            // Scroll to top so overlay is visible
+            window.scrollTo({ top: 0, behavior: 'instant' });
+
+            // Close button reloads page
+            closeBtn.onclick = () => location.reload();
+        }
+    }, 100); // check every 100ms
+};
 
     document.body.appendChild(script);
 }
