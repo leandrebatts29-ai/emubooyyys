@@ -156,7 +156,7 @@ function launch(sys, romPath){
 
     window.EJS_player="#emulator-holder";
     window.EJS_core=core;
-    window.EJS_gameUrl=repoBase + encodeURIComponent(romPath);
+    window.EJS_gameUrl = repoBase + romPath.split('/').map(encodeURIComponent).join('/');
     window.EJS_pathtodata="https://cdn.emulatorjs.org/stable/data/";
     window.EJS_startOnLoaded=true;
 
