@@ -14,7 +14,9 @@
             padding: 20px;
         }
         h1 { color: #ffcc00; text-shadow: 2px 2px #000; }
-        
+
+        <button id="close-game-btn" style="display:none;">Close Game</button>
+
         /* The Game Display Area */
         #game-container { 
             width: 100%; 
@@ -27,16 +29,35 @@
             overflow: hidden;
         }
 
-    #game-container.fullscreen {
+#game-container.fullscreen {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 9999; /* above everything else */
-    margin: 0;
+    left: 50%;
+    transform: translateX(-50%); /* center horizontally */
+    width: 800px;   /* keeps your 4:3 size */
+    height: 600px;
+    background: #000;
+    border: 4px solid #333;
+    border-radius: 8px;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+#close-game-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 10001;
+    padding: 8px 12px;
+    font-weight: bold;
+    background: #ffcc00;
     border: none;
-    border-radius: 0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#close-game-btn:hover {
+    background: #ffc000;
 }
 
 
@@ -79,7 +100,7 @@
 
     <h1>Peak g*mes that outage me by several decades</h1>
 <p style="color:#ccc; font-size:1em; max-width:800px; margin:10px auto;">
-    Old retro g*mes that I [LEGALLY PURCHASED AND DUMPED], that you can play! Just click on one of the g*mes, and it'll play at the window at the bottom of the page. Click the fullscreen button for a better experience.
+    Old retro g*mes that I [LEGALLY PURCHASED AND DUMPED], that you can play! Just click on one of the g*mes, and it'll play . Click the fullscreen button for a better experience.
 </p>
 
 <div class="menu">
@@ -175,8 +196,13 @@
     <script>
 function loadGame(system, url) {
     const container = document.getElementById('game-container');
-    container.classList.add('fullscreen'); // make it take over the page
+    const closeBtn = document.getElementById('close-game-btn');
 
+    // Add fullscreen class
+    container.classList.add('fullscreen');
+    closeBtn.style.display = 'block'; // show button
+
+    // Clear previous game
     document.getElementById('game').innerHTML = '';
 
     const coreMap = {
@@ -188,6 +214,7 @@ function loadGame(system, url) {
         gb: 'gambatte'
     };
 
+    // reset globals
     delete window.EJS_loaded;
     delete window.EJS_emulator;
     delete window.Module;
@@ -205,6 +232,9 @@ function loadGame(system, url) {
     script.id = 'ejs-loader';
     script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
     document.body.appendChild(script);
+
+    // Close button reloads the page
+    closeBtn.onclick = () => location.reload();
 }
     </script>
 </body>
