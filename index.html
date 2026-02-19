@@ -27,6 +27,19 @@
             overflow: hidden;
         }
 
+    #game-container.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999; /* above everything else */
+    margin: 0;
+    border: none;
+    border-radius: 0;
+}
+
+
         /* Organizing the buttons into a nice grid */
         .menu { 
             display: grid;
@@ -158,6 +171,11 @@
 
     <script>
 function loadGame(system, url) {
+    const container = document.getElementById('game-container');
+    container.classList.add('fullscreen'); // make it take over the page
+
+    document.getElementById('game').innerHTML = '';
+
     const coreMap = {
         nes: 'fceumm',
         snes: 'snes9x',
@@ -167,28 +185,23 @@ function loadGame(system, url) {
         gb: 'gambatte'
     };
 
-    const gameUrl = encodeURI(url);
-    const popup = window.open('', '_blank', 'width=800,height=600');
+    delete window.EJS_loaded;
+    delete window.EJS_emulator;
+    delete window.Module;
 
-    // Write minimal HTML into the popup
-    popup.document.write(`
-        <html>
-        <head>
-            <title>Playing Retro Game</title>
-        </head>
-        <body style="margin:0; background:black;">
-            <div id="game"></div>
-            <script>
-                window.EJS_player = '#game';
-                window.EJS_core = '${coreMap[system]}';
-                window.EJS_gameUrl = '${gameUrl}';
-                window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-                window.EJS_startOnLoaded = true;
-            </script>
-            <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
-        </body>
-        </html>
-    `);
+    window.EJS_player = '#game';
+    window.EJS_core = coreMap[system];
+    window.EJS_gameUrl = encodeURI(url);
+    window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+    window.EJS_startOnLoaded = true;
+
+    const oldScript = document.getElementById('ejs-loader');
+    if (oldScript) oldScript.remove();
+
+    const script = document.createElement('script');
+    script.id = 'ejs-loader';
+    script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+    document.body.appendChild(script);
 }
     </script>
 </body>
