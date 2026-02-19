@@ -158,8 +158,6 @@
 
     <script>
 function loadGame(system, url) {
-    document.getElementById('game').innerHTML = '';
-
     const coreMap = {
         nes: 'fceumm',
         snes: 'snes9x',
@@ -169,24 +167,28 @@ function loadGame(system, url) {
         gb: 'gambatte'
     };
 
-    // reset emulator globals
-    delete window.EJS_loaded;
-    delete window.EJS_emulator;
-    delete window.Module;
+    const gameUrl = encodeURI(url);
+    const popup = window.open('', '_blank', 'width=800,height=600');
 
-    window.EJS_player = '#game';
-    window.EJS_core = coreMap[system];
-    window.EJS_gameUrl = encodeURI(url);
-    window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-    window.EJS_startOnLoaded = true;
-
-    const oldScript = document.getElementById('ejs-loader');
-    if (oldScript) oldScript.remove();
-
-    const script = document.createElement('script');
-    script.id = 'ejs-loader';
-    script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-    document.body.appendChild(script);
+    // Write minimal HTML into the popup
+    popup.document.write(`
+        <html>
+        <head>
+            <title>Playing Retro Game</title>
+        </head>
+        <body style="margin:0; background:black;">
+            <div id="game"></div>
+            <script>
+                window.EJS_player = '#game';
+                window.EJS_core = '${coreMap[system]}';
+                window.EJS_gameUrl = '${gameUrl}';
+                window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+                window.EJS_startOnLoaded = true;
+            </script>
+            <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
+        </body>
+        </html>
+    `);
 }
     </script>
 </body>
