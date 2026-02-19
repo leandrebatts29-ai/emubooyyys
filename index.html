@@ -127,9 +127,10 @@
         <button onclick="loadGame('snes', 'snes/Super Mario RPG - Legend of the Seven Stars (USA).sfc')">Super Mario RPG: Legend of the Seven Stars</button>
         <button onclick="loadGame('snes', 'snes/Super Mario World (USA).sfc')">Super Mario World</button>
         <button onclick="loadGame('snes', 'snes/Super Mario World 2 - Yoshi_s Island (USA).sfc')">Super Mario World 2 - Yoshi's Island</button>
-
-    <div class="system-label">Game Boy</div>
+  </div>
+    
 <div class="menu">
+    <div class="system-label">Game Boy</div>
 <button onclick=" loadGame('gb','g*meboy/Bubsy II (USA).gb')">Bubsy II</button>
 <button onclick=" loadGame('gb','g*meboy/Donkey Kong (World) (Rev A) (SGB Enhanced).gb')">Donkey Kong</button>
 <button onclick=" loadGame('gb','g*meboy/Dr. Mario (World).gb')">Dr. Mario</button>
@@ -168,15 +169,16 @@ function loadGame(system, url) {
         gb: 'gambatte'
     };
 
-    // 🔧 reset emulator globals
+    // reset emulator globals
     delete window.EJS_loaded;
     delete window.EJS_emulator;
     delete window.Module;
 
     window.EJS_player = '#game';
     window.EJS_core = coreMap[system];
-    window.EJS_gameUrl = encodeURI(url);   // see issue #2
+    window.EJS_gameUrl = encodeURI(url);
     window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+    window.EJS_startOnLoaded = true;
 
     const oldScript = document.getElementById('ejs-loader');
     if (oldScript) oldScript.remove();
@@ -184,7 +186,7 @@ function loadGame(system, url) {
     const script = document.createElement('script');
     script.id = 'ejs-loader';
     script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-    document.body.appendChild(script); // safer than head
+    document.body.appendChild(script);
 }
     </script>
 </body>
