@@ -125,11 +125,9 @@ const holder=document.getElementById("emulator-holder");
 modal.style.display="none";
 
 function resetControls(sys){
-    if(sys==='mame') window.EJS_defaultControls={
-        A:"z",B:"x",C:"c",D:"v",E:"b",F:"n",G:"m",
+    if(sys==='mame') window.EJS_defaultControls={A:"z",B:"x",C:"c",D:"v",E:"b",F:"n",G:"m",
         UP:"arrowup",DOWN:"arrowdown",LEFT:"arrowleft",RIGHT:"arrowright",
-        START:"enter",SELECT:"shift"
-    };
+        START:"enter",SELECT:"shift"};
     else if(sys==='genesis'||sys==='sega32x') {
         window.EJS_defaultControls={A:"z",B:"x",C:"c",X:"v",Y:"b",Z:"n",MODE:"shift",START:"enter",UP:"arrowup",DOWN:"arrowdown",LEFT:"arrowleft",RIGHT:"arrowright"};
         window.EJS_coreOptions={genesis_plus_gx_controller_type:"6button",picodrive_input1:"6button"};
@@ -138,17 +136,16 @@ function resetControls(sys){
     else if(sys==='snes') window.EJS_defaultControls={A:"z",B:"x",X:"c",Y:"v",L:"q",R:"w",START:"enter",SELECT:"shift",UP:"arrowup",DOWN:"arrowdown",LEFT:"arrowleft",RIGHT:"arrowright"};
 }
 
-function launch(sys,romPath){
-    if(emulatorRunning){ console.warn("Emulator already running"); return; }
-    emulatorRunning=true;
-    modal.style.display="block";
-    closeGameBtn.style.display="block";
 
-    // clear old instance
-    holder.innerHTML="";
+function launch(sys, romPath){
+    if(emulatorRunning){ console.warn("Emulator already running"); return; }
+    emulatorRunning = true;
+    modal.style.display = "block";
+    closeGameBtn.style.display = "block";
+
+    holder.innerHTML = "";
     resetControls(sys);
 
-    // select core
     let core="";
     if(sys==='mame') core='mame2003plus';
     else if(sys==='nes') core='fceumm';
@@ -157,30 +154,45 @@ function launch(sys,romPath){
     else if(sys==='sega32x') core='picodrive';
     else if(sys==='gb') core='gambatte';
 
-    // EmulatorJS config
     window.EJS_player="#emulator-holder";
     window.EJS_core=core;
     window.EJS_gameUrl=repoBase + encodeURIComponent(romPath);
     window.EJS_pathtodata="https://cdn.emulatorjs.org/stable/data/";
     window.EJS_startOnLoaded=true;
 
-    // remove old loader
+    // Remove old loader once
     const oldLoader=document.getElementById("ejs-loader-script");
     if(oldLoader) oldLoader.remove();
 
-    // load new
+    // Append loader (stable)
     const loader=document.createElement("script");
     loader.id="ejs-loader-script";
     loader.src="https://cdn.emulatorjs.org/stable/data/loader.js?t="+Date.now();
     document.body.appendChild(loader);
 }
 
-function closeGame(){
-    holder.innerHTML=""; // destroy instance
-    modal.style.display="none";
-    emulatorRunning=false;
-    closeGameBtn.style.display="none";
+function closeGame() {
+    // destroy the DOM holder
+    holder.innerHTML = "";
+
+    // reset globals
+    try {
+        delete window.EJS_PLAYER;
+        delete window.EJS_core;
+        delete window.EJS_gameUrl;
+        delete window.EJS_defaultControls;
+        delete window.EJS_coreOptions;
+        delete window.EJS_pathtodata;
+        delete window.EJS_startOnLoaded;
+        delete window.EJS_hotkeys;
+        delete window.EJS_STORAGE;
+    } catch(e) {}
+
+    modal.style.display = "none";
+    emulatorRunning = false;
+    closeGameBtn.style.display = "none";
 }
+
 </script>
 </body>
 </html>
