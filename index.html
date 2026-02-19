@@ -203,12 +203,10 @@
 function loadGame(system, url) {
     const container = document.getElementById('game-container');
     const closeBtn = document.getElementById('close-game-btn');
-    const gameDiv = document.getElementById('game');
 
     // Clear previous game
-    gameDiv.innerHTML = '';
+    document.getElementById('game').innerHTML = '';
 
-    // EmulatorJS core map
     const coreMap = {
         nes: 'fceumm',
         snes: 'snes9x',
@@ -218,7 +216,7 @@ function loadGame(system, url) {
         gb: 'gambatte'
     };
 
-    // Reset any previous emulator
+    // reset globals
     delete window.EJS_loaded;
     delete window.EJS_emulator;
     delete window.Module;
@@ -229,30 +227,42 @@ function loadGame(system, url) {
     window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
     window.EJS_startOnLoaded = true;
 
-    // Remove old loader if exists
+    // ✅ Keyboard fix for Genesis / 32X
+    if (system === 'genesis' || system === 'sega32x') {
+        window.EJS_inputConfig = {
+            'P1 Up': 'ArrowUp',
+            'P1 Down': 'ArrowDown',
+            'P1 Left': 'ArrowLeft',
+            'P1 Right': 'ArrowRight',
+            'P1 Button 1': 'Z',   // A
+            'P1 Button 2': 'X',   // B
+            'P1 Button 3': 'C',   // C
+            'P1 Start': 'Enter',
+            'P1 Select': 'Shift'
+        };
+    }
+
     const oldScript = document.getElementById('ejs-loader');
     if (oldScript) oldScript.remove();
 
-    // Add loader
     const script = document.createElement('script');
     script.id = 'ejs-loader';
     script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
 
-    // Wait for emulator to fully load
     script.onload = () => {
         const checkLoaded = setInterval(() => {
             if (window.EJS_loaded) {
                 clearInterval(checkLoaded);
 
-                // Activate fullscreen
+                // Add fullscreen class AFTER the emulator is ready
                 container.classList.add('fullscreen');
-
-                // Show close button
                 closeBtn.style.display = 'block';
-                closeBtn.onclick = () => location.reload();
 
-                // Scroll page to top
+                // Scroll to top so overlay is visible
                 window.scrollTo({ top: 0, behavior: 'instant' });
+
+                // Close button reloads page
+                closeBtn.onclick = () => location.reload();
             }
         }, 100);
     };
