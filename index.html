@@ -66,13 +66,11 @@ function launch(sys, romPath){
     if(sys==='mame') core='mame2003plus';
     if(sys==='gb') core='gambatte';
 
-    // DEFAULT CONTROLS (same as before)
-    // HOTKEYS (same as before)
+    resetControls(sys);
 
     // EMULATOR CONFIG
     window.EJS_player = "#emulator-holder";
     window.EJS_core = core;
-    // ⚠️ Encode ROM URL to handle spaces, &, ()
     window.EJS_gameUrl = repoBase + encodeURIComponent(romPath);
     window.EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
     window.EJS_startOnLoaded = true;
@@ -86,9 +84,53 @@ function launch(sys, romPath){
     const loader = document.createElement("script");
     loader.id = "ejs-loader-script";
     loader.src = "https://cdn.emulatorjs.org/stable/data/loader.js?t=" + Date.now();
+    loader.type = "text/javascript"; // important
     document.body.appendChild(loader);
 }
+
+function resetControls(sys){
+    if(sys==='mame'){
+        window.EJS_defaultControls = {
+            A:"z", B:"x", C:"c", D:"v", E:"b", F:"n", G:"m",
+            UP:"arrowup", DOWN:"arrowdown",
+            LEFT:"arrowleft", RIGHT:"arrowright",
+            START:"enter", SELECT:"shift"
+        };
+    }
+    else if(sys==='genesis' || sys==='sega32x'){
+        window.EJS_defaultControls = {
+            A:"z", B:"x", C:"c",
+            X:"v", Y:"b", Z:"n",
+            MODE:"shift", START:"enter",
+            UP:"arrowup", DOWN:"arrowdown",
+            LEFT:"arrowleft", RIGHT:"arrowright"
+        };
+        window.EJS_coreOptions = {
+            genesis_plus_gx_controller_type: "6button",
+            picodrive_input1: "6button"
+        };
+    }
+    else if(sys==='nes' || sys==='gb'){
+        window.EJS_defaultControls = {
+            A:"z", B:"x",
+            START:"enter", SELECT:"shift",
+            UP:"arrowup", DOWN:"arrowdown",
+            LEFT:"arrowleft", RIGHT:"arrowright"
+        };
+    }
+    else if(sys==='snes'){
+        window.EJS_defaultControls = {
+            A:"z", B:"x", X:"c", Y:"v",
+            L:"q", R:"w",
+            START:"enter", SELECT:"shift",
+            UP:"arrowup", DOWN:"arrowdown",
+            LEFT:"arrowleft", RIGHT:"arrowright"
+        };
+    }
+}
+
 </script>
+
 
 <!-- ================== GAME BUTTONS ================== -->
 <div class="system-label">Arcade</div>
