@@ -156,36 +156,36 @@
     </div>
 
     <script>
-        function loadGame(system, url) {
-            // 1. Clear the container
-            document.getElementById('game').innerHTML = '';
-            
-            // 2. Map system nicknames to actual EmulatorJS core names
-            const coreMap = {
-                'nes': 'fceumm',
-                'snes': 'snes9x',
-                'genesis': 'genesis_plus_gx',
-                'sega32x': 'picodrive',
-                'mame': 'mame2003plus',
-                'gb': 'gambatte'
-            };
+function loadGame(system, url) {
+    document.getElementById('game').innerHTML = '';
 
-            // 3. Set up the EmulatorJS Global Variables
-            window.EJS_player = '#game';
-            window.EJS_core = coreMap[system]; 
-            window.EJS_gameUrl = url; 
-            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-            
-            // 4. Clean up any existing loader script to allow switching games
-            const oldScript = document.getElementById('ejs-loader');
-            if (oldScript) oldScript.remove();
+    const coreMap = {
+        nes: 'fceumm',
+        snes: 'snes9x',
+        genesis: 'genesis_plus_gx',
+        sega32x: 'picodrive',
+        mame: 'mame2003plus',
+        gb: 'gambatte'
+    };
 
-            // 5. Create and inject the loader script
-            let script = document.createElement('script');
-            script.id = 'ejs-loader';
-            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-            document.head.appendChild(script);
-        }
+    // 🔧 reset emulator globals
+    delete window.EJS_loaded;
+    delete window.EJS_emulator;
+    delete window.Module;
+
+    window.EJS_player = '#game';
+    window.EJS_core = coreMap[system];
+    window.EJS_gameUrl = encodeURI(url);   // see issue #2
+    window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+
+    const oldScript = document.getElementById('ejs-loader');
+    if (oldScript) oldScript.remove();
+
+    const script = document.createElement('script');
+    script.id = 'ejs-loader';
+    script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+    document.body.appendChild(script); // safer than head
+}
     </script>
 </body>
 </html>
