@@ -2,31 +2,75 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Old Vidja G*mes</title>
-    <style>
-        body { background: #1a1a1a; color: white; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
-        h1 { color: #ffcc00; }
-        
-        /* Grid Layout */
-        .menu { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; max-width: 1200px; margin: 0 auto; }
-        .system-label { grid-column: 1 / -1; text-align: left; border-bottom: 2px solid #333; margin-top: 30px; padding-bottom: 5px; color: #aaa; font-weight: bold; }
-        
-        button { padding: 12px; background: #333; color: white; border: 1px solid #444; border-radius: 5px; cursor: pointer; font-size: 14px; }
-        button:hover { background: #555; border-color: #ffcc00; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Old Vidja G*mes</title>
 
-<div id="game-modal">
-  <button class="close-btn" onclick="closeGame()">Close Game ✖</button>
-  <div id="emulator-holder" style="position:absolute; inset:0;"></div>
-</div>
+<style>
+body {
+  background:#1a1a1a;
+  color:white;
+  font-family:sans-serif;
+  text-align:center;
+  margin:0;
+  padding:20px;
+}
 
-    </style>
+h1 { color:#ffcc00; }
+
+.menu {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+.system-label{
+  grid-column:1/-1;
+  text-align:left;
+  border-bottom:2px solid #333;
+  margin-top:30px;
+  padding-bottom:5px;
+  color:#aaa;
+  font-weight:bold;
+}
+
+button{
+  padding:12px;
+  background:#333;
+  color:white;
+  border:1px solid #444;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#555;
+  border-color:#ffcc00;
+}
+
+/* modal */
+#game-modal{
+  position:fixed;
+  inset:0;
+  background:black;
+  display:none;
+  z-index:9999;
+}
+
+.close-btn{
+  position:absolute;
+  top:10px;
+  right:10px;
+  z-index:10000;
+}
+</style>
 </head>
+
 <body>
 
-    
-    <h1>G*mes that are significantly older than me but are still peak.</h1>
+<h1>G*mes that are significantly older than me but are still peak.</h1>
 
         <div class="system-label">Arcade</div>
         <button onclick="launch('mame', 'arcade/frogger.zip')">Frogger</button>
@@ -74,23 +118,23 @@
         <button onclick="launch('nes', 'nes/Zelda II - The Adventure of Link (USA).nes')">Zelda II: the Adventure of Link</button>
     </div>
 
-<div class="system-label">Game Boy</div>
-<button onclick="launch('gb', 'g*meboy/Bubsy II (USA).gb')">Bubsy II</button>
-<button onclick="launch('gb', 'g*meboy/Donkey Kong (World) (Rev A) (SGB Enhanced).gb')">Donkey Kong</button>
-<button onclick="launch('gb', 'g*meboy/Dr. Mario (World).gb')">Dr. Mario</button>
-<button onclick="launch('gb', 'g*meboy/DuckTales (USA).gb')">DuckTales</button>
-<button onclick="launch('gb', 'g*meboy/DuckTales 2 (USA).gb')">DuckTales 2</button>
-<button onclick="launch('gb', 'g*meboy/Felix the Cat (USA, Europe).gb')">Felix the Cat</button>
-<button onclick="launch('gb', 'g*meboy/Game & Watch Gallery (USA) (Rev A) (SGB Enhanced).gb')">Game & Watch Gallery</button>
-<button onclick="launch('gb', 'g*meboy/Pac-Man (USA).gb')">Pac-Man</button>
-<button onclick="launch('gb', 'g*meboy/Pokemon - Blue Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Blue</button>
-<button onclick="launch('gb', 'g*meboy/Pokemon - Red Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Red</button>
-<button onclick="launch('gb', 'g*meboy/Pokemon - Yellow Version - Special Pikachu Edition (USA, Europe) (GBC,SGB Enhanced).gb')">Pokémon Yellow</button>
-<button onclick="launch('gb', 'g*meboy/Super Mario Land (World).gb')">Super Mario Land</button>
-<button onclick="launch('gb', 'g*meboy/Super Mario Land 2 - 6 Golden Coins (USA, Europe).gb')">Super Mario Land 2 - 6 Golden Coins</button>
-<button onclick="launch('gb', 'g*meboy/Tetris (World) (Rev A).gb')">Tetris</button>
-<button onclick="launch('gb', 'g*meboy/Wario Land - Super Mario Land 3 (World).gb')">Wario Land - Super Mario Land 3</button>
-<button onclick="launch('gb', 'g*meboy/Who Framed Roger Rabbit (USA).gb')">Who Framed Roger Rabbit</button>
+  <div class="system-label">Game Boy</div>
+    <button onclick="launch('gb', 'g*meboy/Bubsy II (USA).gb')">Bubsy II</button>
+    <button onclick="launch('gb', 'g*meboy/Donkey Kong (World) (Rev A) (SGB Enhanced).gb')">Donkey Kong</button>
+    <button onclick="launch('gb', 'g*meboy/Dr. Mario (World).gb')">Dr. Mario</button>
+    <button onclick="launch('gb', 'g*meboy/DuckTales (USA).gb')">DuckTales</button>
+    <button onclick="launch('gb', 'g*meboy/DuckTales 2 (USA).gb')">DuckTales 2</button>
+    <button onclick="launch('gb', 'g*meboy/Felix the Cat (USA, Europe).gb')">Felix the Cat</button>
+    <button onclick="launch('gb', 'g*meboy/Game & Watch Gallery (USA) (Rev A) (SGB Enhanced).gb')">Game & Watch Gallery</button>
+    <button onclick="launch('gb', 'g*meboy/Pac-Man (USA).gb')">Pac-Man</button>
+    <button onclick="launch('gb', 'g*meboy/Pokemon - Blue Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Blue</button>
+    <button onclick="launch('gb', 'g*meboy/Pokemon - Red Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Red</button>
+    <button onclick="launch('gb', 'g*meboy/Pokemon - Yellow Version - Special Pikachu Edition (USA, Europe) (GBC,SGB Enhanced).gb')">Pokémon Yellow</button>
+    <button onclick="launch('gb', 'g*meboy/Super Mario Land (World).gb')">Super Mario Land</button>
+    <button onclick="launch('gb', 'g*meboy/Super Mario Land 2 - 6 Golden Coins (USA, Europe).gb')">Super Mario Land 2 - 6 Golden Coins</button>
+    <button onclick="launch('gb', 'g*meboy/Tetris (World) (Rev A).gb')">Tetris</button>
+    <button onclick="launch('gb', 'g*meboy/Wario Land - Super Mario Land 3 (World).gb')">Wario Land - Super Mario Land 3</button>
+    <button onclick="launch('gb', 'g*meboy/Who Framed Roger Rabbit (USA).gb')">Who Framed Roger Rabbit</button>
 
     <div class="menu">
         <div class="system-label">SNES</div>
@@ -109,166 +153,62 @@
 
         </div>
 
+
+<!-- MODAL (ONLY ONE) -->
 <div id="game-modal">
-    <button class="close-btn" onclick="closeGame()">Close Game ✖</button>
-    <!-- Add the container the launch() function expects -->
-    <div id="emulator-holder" style="position:absolute; inset:0;"></div>
-</div>
-
-<div id="game"></div>
-
-<div style="margin-bottom: 20px;">
-    <input type="text" id="gameSearch" placeholder="Search for a game..." 
-           style="padding: 10px; width: 80%; max-width: 400px; border-radius: 5px; border: 1px solid #444; background: #222; color: white;">
+  <button id="closeGameBtn" class="close-btn" onclick="closeGame()">Close Game ✖</button>
+  <div id="emulator-holder" style="position:absolute; inset:0;"></div>
 </div>
 
 <script>
-const repoBase = "https://leandrebatts29-ai.github.io/emubooyyys/";
+const repoBase="https://leandrebatts29-ai.github.io/emubooyyys/";
+let emulatorRunning=false;
 
-    
-function launch(sys, romPath) {
+const modal=document.getElementById("game-modal");
+const closeGameBtn=document.getElementById("closeGameBtn");
+const holder=document.getElementById("emulator-holder");
 
+modal.style.display="none";
 
-  // ------------------------------------------------
-  // 1. SHOW MODAL
-  // ------------------------------------------------
-  const modal = document.getElementById('game-modal');
-  modal.style.display = 'block';
+function launch(sys,romPath){
 
+ if(emulatorRunning) return;
+ emulatorRunning=true;
 
-  // ------------------------------------------------
-  // 2. RESET EMULATOR CONTAINER (IMPORTANT)
-  // ------------------------------------------------
-  let holder = document.getElementById('emulator-holder');
+ modal.style.display="block";
+ closeGameBtn.style.display="block";
 
-  if (!holder) {
-    holder = document.createElement('div');
-    holder.id = 'emulator-holder';
-    modal.appendChild(holder);
-  }
+ holder.innerHTML="";
 
-  holder.innerHTML = "";
-  holder.style.position = "absolute";
-  holder.style.inset = "0";
-  holder.style.width = "100%";
-  holder.style.height = "100%";
+ let core="";
+ if(sys==='mame') core='mame2003plus';
+ if(sys==='nes') core='fceumm';
+ if(sys==='snes') core='snes9x';
+ if(sys==='genesis') core='genesis_plus_gx';
+ if(sys==='sega32x') core='picodrive';
+ if(sys==='gb') core='gambatte';
 
+ window.EJS_player="#emulator-holder";
+ window.EJS_core=core;
+ window.EJS_gameUrl=repoBase+romPath;
+ window.EJS_pathtodata="https://cdn.emulatorjs.org/stable/data/";
+ window.EJS_startOnLoaded=true;
 
-  // ------------------------------------------------
-  // 3. SELECT CORE
-  // ------------------------------------------------
-  let coreToUse = "";
+ const oldLoader=document.getElementById("ejs-loader-script");
+ if(oldLoader) oldLoader.remove();
 
-  if (sys === 'nes') coreToUse = 'fceumm';
-  else if (sys === 'snes') coreToUse = 'snes9x';
-  else if (sys === 'genesis') coreToUse = 'genesis_plus_gx';
-  else if (sys === 'sega32x') coreToUse = 'picodrive';
-  else if (sys === 'mame') coreToUse = 'mame2003plus';
-  else if (sys === 'gb') coreToUse = 'gambatte';
-
-
-  // ------------------------------------------------
-  // 4. DEFAULT CONTROLS
-  // ------------------------------------------------
-  if (sys === 'mame') {
-    window.EJS_defaultControls = {
-      A:"z", B:"x", C:"c", D:"v", E:"b", F:"n", G:"m",
-      UP:"arrowup", DOWN:"arrowdown",
-      LEFT:"arrowleft", RIGHT:"arrowright",
-      START:"enter", SELECT:"shift"
-    };
-  }
-
-  else if (sys === 'genesis' || sys === 'sega32x') {
-    window.EJS_defaultControls = {
-      A:"z", B:"x", C:"c",
-      X:"v", Y:"b", Z:"n",
-      MODE:"shift", START:"enter",
-      UP:"arrowup", DOWN:"arrowdown",
-      LEFT:"arrowleft", RIGHT:"arrowright"
-    };
-
-    window.EJS_coreOptions = {
-      genesis_plus_gx_controller_type: "6button",
-      picodrive_input1: "6button"
-    };
-  }
-
-  else if (sys === 'nes' || sys === 'gb' ){
-    window.EJS_defaultControls = {
-      A:"z", B:"x",
-      START:"enter", SELECT:"shift",
-      UP:"arrowup", DOWN:"arrowdown",
-      LEFT:"arrowleft", RIGHT:"arrowright"
-    };
-  }
-
-  else if (sys === 'snes') {
-    window.EJS_defaultControls = {
-      A:"z", B:"x", X:"c", Y:"v",
-      L:"q", R:"w",
-      START:"enter", SELECT:"shift",
-      UP:"arrowup", DOWN:"arrowdown",
-      LEFT:"arrowleft", RIGHT:"arrowright"
-    };
-  }
-
-
-  // ------------------------------------------------
-  // 5. HOTKEYS
-  // ------------------------------------------------
-  window.EJS_hotkeys = {
-    fastForward:"f",
-    rewind:"r",
-    slowMotion:"e",
-    saveState:"i",
-    loadState:"k",
-    nextStateSlot:"l"
-  };
-
-
-  // ------------------------------------------------
-  // 6. EMULATOR CONFIG (SET BEFORE LOADER)
-  // ------------------------------------------------
-  window.EJS_player = "#emulator-holder";
-  window.EJS_core = coreToUse;
-  window.EJS_gameUrl = repoBase + romPath;
-  window.EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
-  window.EJS_startOnLoaded = true;
-  window.EJS_gameName = sys + "_controls_v1";
-
-
-  // ------------------------------------------------
-  // 7. DEBUG (optional but helpful)
-  // ------------------------------------------------
-  console.log("Launching:", sys);
-  console.log("ROM:", window.EJS_gameUrl);
-  console.log("Core:", coreToUse);
-  console.log("Holder size:", holder.offsetWidth, holder.offsetHeight);
-
-
-  // ------------------------------------------------
-  // 8. REMOVE OLD LOADER
-  // ------------------------------------------------
-  const oldLoader = document.getElementById("ejs-loader-script");
-  if (oldLoader) oldLoader.remove();
-
-
-  // ------------------------------------------------
-  // 9. LOAD EMULATORJS (ALWAYS LAST)
-  // ------------------------------------------------
-  const loader = document.createElement("script");
-  loader.id = "ejs-loader-script";
-  loader.src = "https://cdn.emulatorjs.org/stable/data/loader.js?t=" + Date.now();
-  document.body.appendChild(loader);
+ const loader=document.createElement("script");
+ loader.id="ejs-loader-script";
+ loader.src="https://cdn.emulatorjs.org/stable/data/loader.js?t="+Date.now();
+ document.body.appendChild(loader);
 }
 
-function closeGame() {
-    document.getElementById('game-modal').style.display = 'none';
-    window.location.href = window.location.pathname + "?t=" + Date.now();
+function closeGame(){
+ emulatorRunning=false;
+ modal.style.display="none";
+ holder.innerHTML="";
 }
-
 </script>
-    
+
 </body>
 </html>
