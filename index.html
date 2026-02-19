@@ -200,6 +200,19 @@
         </div>
 
 <script>
+window.EJS_inputConfig = {
+    // Genesis / 32X default keyboard mapping
+    'P1 Up': 'arrowup',
+    'P1 Down': 'arrowdown',
+    'P1 Left': 'arrowleft',
+    'P1 Right': 'arrowright',
+    'P1 Button 1': 'z',   // A
+    'P1 Button 2': 'x',   // B
+    'P1 Button 3': 'c',   // C
+    'P1 Start': 'enter',  
+    'P1 Select': 'shift'
+};
+
 function loadGame(system, url) {
     const container = document.getElementById('game-container');
     const closeBtn = document.getElementById('close-game-btn');
@@ -227,21 +240,6 @@ function loadGame(system, url) {
     window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
     window.EJS_startOnLoaded = true;
 
-    // ✅ Keyboard fix for Genesis / 32X
-    if (system === 'genesis' || system === 'sega32x') {
-        window.EJS_inputConfig = {
-            'P1 Up': 'ArrowUp',
-            'P1 Down': 'ArrowDown',
-            'P1 Left': 'ArrowLeft',
-            'P1 Right': 'ArrowRight',
-            'P1 Button 1': 'Z',   // A
-            'P1 Button 2': 'X',   // B
-            'P1 Button 3': 'C',   // C
-            'P1 Start': 'Enter',
-            'P1 Select': 'Shift'
-        };
-    }
-
     const oldScript = document.getElementById('ejs-loader');
     if (oldScript) oldScript.remove();
 
@@ -254,14 +252,9 @@ function loadGame(system, url) {
             if (window.EJS_loaded) {
                 clearInterval(checkLoaded);
 
-                // Add fullscreen class AFTER the emulator is ready
                 container.classList.add('fullscreen');
                 closeBtn.style.display = 'block';
-
-                // Scroll to top so overlay is visible
                 window.scrollTo({ top: 0, behavior: 'instant' });
-
-                // Close button reloads page
                 closeBtn.onclick = () => location.reload();
             }
         }, 100);
