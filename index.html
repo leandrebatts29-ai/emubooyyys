@@ -188,28 +188,19 @@ async function launch(system, rom, core) {
     window.EJS_startOnLoaded = true;
 
 
-    /* ---------- LOAD LOADER ONCE ---------- */
+/* ---------- ALWAYS reload loader ---------- */
 
-    if (!window.__EJS_LOADER__) {
-        window.__EJS_LOADER__ = true;
+// remove old loader if it exists
+const old = document.getElementById("ejsloader");
+if (old) old.remove();
 
-        const s = document.createElement("script");
-        s.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
-        document.body.appendChild(s);
+// add fresh loader (cache-busted so browser cannot reuse it)
+const s = document.createElement("script");
+s.id = "ejsloader";
+s.src = "https://cdn.emulatorjs.org/stable/data/loader.js?v=" + Date.now();
+document.body.appendChild(s);
 
-    } else {
-        // loader already present → just start emulator
-        new EmulatorJS(EJS_player);
-    }
-
-    emulatorRunning = true;
-}
-
-function closeGame() {
-    if (window.EJS_emulator) {
-        try { window.EJS_emulator.exit(); } catch(e){}
-    }
-    document.getElementById("game").innerHTML = "";
+  document.getElementById("game").innerHTML = "";
     emulatorRunning = false;
 }
 
