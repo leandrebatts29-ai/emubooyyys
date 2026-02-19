@@ -161,128 +161,104 @@ button:hover{
 </div>
 
 <script>
-const repoBase="https://leandrebatts29-ai.github.io/emubooyyys/";
-let emulatorRunning=false;
+const repoBase = "https://leandrebatts29-ai.github.io/emubooyyys/";
+let emulatorRunning = false;
 
-const modal=document.getElementById("game-modal");
-const closeGameBtn=document.getElementById("closeGameBtn");
-const holder=document.getElementById("emulator-holder");
+const modal = document.getElementById("game-modal");
+const closeGameBtn = document.getElementById("closeGameBtn");
+const holder = document.getElementById("emulator-holder");
 
-modal.style.display="none";
+modal.style.display = "none";
 
-function launch(sys,romPath){
+function launch(sys, romPath) {
+    if (emulatorRunning) {
+        console.warn("Emulator already running");
+        return;
+    }
+    emulatorRunning = true;
 
- if(emulatorRunning) return;
- emulatorRunning=true;
+    modal.style.display = "block";
+    closeGameBtn.style.display = "block";
 
- modal.style.display="block";
- closeGameBtn.style.display="block";
+    holder.innerHTML = "";
 
- holder.innerHTML="";
+    // -------------------
+    // Select core
+    // -------------------
+    let core = "";
+    switch(sys){
+        case "mame": core="mame2003plus"; break;
+        case "nes": core="fceumm"; break;
+        case "snes": core="snes9x"; break;
+        case "genesis": core="genesis_plus_gx"; break;
+        case "sega32x": core="picodrive"; break;
+        case "gb": core="gambatte"; break;
+    }
 
- let core="";
- if(sys==='mame') core='mame2003plus';
- if(sys==='nes') core='fceumm';
- if(sys==='snes') core='snes9x';
- if(sys==='genesis') core='genesis_plus_gx';
- if(sys==='sega32x') core='picodrive';
- if(sys==='gb') core='gambatte';
+    // -------------------
+    // Default controls per system
+    // -------------------
+    if(sys === 'nes' || sys === 'gb'){
+        window.EJS_defaultControls = {A:"z", B:"x", START:"enter", SELECT:"shift", UP:"arrowup", DOWN:"arrowdown", LEFT:"arrowleft", RIGHT:"arrowright"};
+    } else if(sys === 'snes'){
+        window.EJS_defaultControls = {A:"z", B:"x", X:"c", Y:"v", L:"q", R:"w", START:"enter", SELECT:"shift", UP:"arrowup", DOWN:"arrowdown", LEFT:"arrowleft", RIGHT:"arrowright"};
+    } else if(sys === 'genesis'){
+        window.EJS_defaultControls = {A:"z", B:"x", C:"c", X:"v", Y:"b", Z:"n", MODE:"shift", START:"enter", UP:"arrowup", DOWN:"arrowdown", LEFT:"arrowleft", RIGHT:"arrowright"};
+        window.EJS_coreOptions = {genesis_plus_gx_controller_type:"6button"};
+    } else if(sys === 'sega32x'){
+        window.EJS_defaultControls = {A:"z", B:"x", C:"c", X:"v", Y:"b", Z:"n", MODE:"shift", START:"enter", UP:"arrowup", DOWN:"arrowdown", LEFT:"arrowleft", RIGHT:"arrowright"};
+        window.EJS_coreOptions = {picodrive_input1:"6button"};
+    } else if(sys === 'mame'){
+        window.EJS_defaultControls = {A:"z", B:"x", C:"c", D:"v", E:"b", F:"n", G:"m", UP:"arrowup", DOWN:"arrowdown", LEFT:"arrowleft", RIGHT:"arrowright", START:"enter", SELECT:"shift"};
+    }
 
- window.EJS_player="#emulator-holder";
- window.EJS_core=core;
- window.EJS_gameUrl=repoBase+romPath;
- window.EJS_pathtodata = "https://cdn.emulatorjs.org/latest/data/";
- window.EJS_startOnLoaded=true;
+    // -------------------
+    // Hotkeys
+    // -------------------
+    window.EJS_hotkeys = {fastForward:"f", rewind:"r", slowMotion:"e", saveState:"i", loadState:"k", nextStateSlot:"l"};
 
-// -----------------------------
-// 1. Default controls per system
-// -----------------------------
+    // -------------------
+    // Emulator config
+    // -------------------
+    window.EJS_player="#emulator-holder";
+    window.EJS_core=core;
+    window.EJS_gameUrl=repoBase + romPath;
+    window.EJS_pathtodata="https://cdn.emulatorjs.org/stable/data/";
+    window.EJS_startOnLoaded=true;
 
-  const oldLoader=document.getElementById("ejs-loader-script");
-if(oldLoader) oldLoader.remove();
+    // -------------------
+    // Remove old loader (reuse variable name to avoid SyntaxError)
+    // -------------------
+    let oldLoader = document.getElementById("ejs-loader-script");
+    if(oldLoader) oldLoader.remove();
 
-if(sys === 'nes' || sys === 'gb'){
-    window.EJS_defaultControls = {
-        A:"z", B:"x",
-        START:"enter", SELECT:"shift",
-        UP:"arrowup", DOWN:"arrowdown",
-        LEFT:"arrowleft", RIGHT:"arrowright"
-    };
-}
-else if(sys === 'snes'){
-    window.EJS_defaultControls = {
-        A:"z", B:"x", X:"c", Y:"v",
-        L:"q", R:"w",
-        START:"enter", SELECT:"shift",
-        UP:"arrowup", DOWN:"arrowdown",
-        LEFT:"arrowleft", RIGHT:"arrowright"
-    };
-}
-else if(sys === 'genesis'){
-    window.EJS_defaultControls = {
-        A:"z", B:"x", C:"c",
-        X:"v", Y:"b", Z:"n",
-        MODE:"shift", START:"enter",
-        UP:"arrowup", DOWN:"arrowdown",
-        LEFT:"arrowleft", RIGHT:"arrowright"
-    };
-    window.EJS_coreOptions = {
-        genesis_plus_gx_controller_type: "6button"
-    };
-}
-else if(sys === 'sega32x'){
-    window.EJS_defaultControls = {
-        A:"z", B:"x", C:"c",
-        X:"v", Y:"b", Z:"n",
-        MODE:"shift", START:"enter",
-        UP:"arrowup", DOWN:"arrowdown",
-        LEFT:"arrowleft", RIGHT:"arrowright"
-    };
-    window.EJS_coreOptions = {
-        picodrive_input1: "6button"
-    };
-}
-else if(sys === 'mame'){
-    window.EJS_defaultControls = {
-        A:"z", B:"x", C:"c", D:"v", E:"b", F:"n", G:"m",
-        UP:"arrowup", DOWN:"arrowdown",
-        LEFT:"arrowleft", RIGHT:"arrowright",
-        START:"enter", SELECT:"shift"
-    };
-}
+    // -------------------
+    // Debug
+    // -------------------
+    console.log("Launching:", sys);
+    console.log("ROM:", window.EJS_gameUrl);
+    console.log("Core:", core);
+    console.log("Holder size:", holder.offsetWidth, holder.offsetHeight);
 
-// -----------------------------
-// 2. Hotkeys (optional but recommended)
-// -----------------------------
-window.EJS_hotkeys = {
-    fastForward:"f",
-    rewind:"r",
-    slowMotion:"e",
-    saveState:"i",
-    loadState:"k",
-    nextStateSlot:"l"
-};
-
- const oldLoader=document.getElementById("ejs-loader-script");
- if(oldLoader) oldLoader.remove();
-
- const loader=document.createElement("script");
- loader.id="ejs-loader-script";
- loader.src="https://cdn.emulatorjs.org/stable/data/loader.js?t="+Date.now();
- document.body.appendChild(loader);
+    // -------------------
+    // Load EmulatorJS
+    // -------------------
+    const loader = document.createElement("script");
+    loader.id = "ejs-loader-script";
+    loader.src = "https://cdn.emulatorjs.org/stable/data/loader.js?t=" + Date.now();
+    document.body.appendChild(loader);
 }
 
 function closeGame() {
-    const holder = document.getElementById('emulator-holder');
-
-    // Remove emulator instance properly
+    if(window.EJS_instance) {
+        window.EJS_instance.destroy(); // properly stop WASM + audio
+        window.EJS_instance = null;
+    }
     holder.innerHTML = "";
-    
-    document.getElementById('game-modal').style.display = 'none';
+    modal.style.display = "none";
+    closeGameBtn.style.display = "none";
     emulatorRunning = false;
-    document.getElementById('closeGameBtn').style.display = "none";
 }
-
 </script>
 
 </body>
