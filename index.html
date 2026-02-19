@@ -1,162 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Old Vidja G*mes</title>
-
 <style>
-body {
-  background:#1a1a1a;
-  color:white;
-  font-family:sans-serif;
-  text-align:center;
-  margin:0;
-  padding:20px;
-}
-
+body { background:#1a1a1a; color:white; font-family:sans-serif; text-align:center; margin:0; padding:20px; }
 h1 { color:#ffcc00; }
 
-.menu {
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-  gap:10px;
-  max-width:1200px;
-  margin:0 auto;
-}
-
-.system-label{
-  grid-column:1/-1;
-  text-align:left;
-  border-bottom:2px solid #333;
-  margin-top:30px;
-  padding-bottom:5px;
-  color:#aaa;
-  font-weight:bold;
-}
-
-button{
-  padding:12px;
-  background:#333;
-  color:white;
-  border:1px solid #444;
-  border-radius:5px;
-  cursor:pointer;
-}
-
-button:hover{
-  background:#555;
-  border-color:#ffcc00;
-}
+.menu { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; max-width:1200px; margin:0 auto; }
+.system-label{ grid-column:1/-1; text-align:left; border-bottom:2px solid #333; margin-top:30px; padding-bottom:5px; color:#aaa; font-weight:bold; }
+button{ padding:12px; background:#333; color:white; border:1px solid #444; border-radius:5px; cursor:pointer; font-size:14px; }
+button:hover{ background:#555; border-color:#ffcc00; }
 
 /* modal */
-#game-modal{
-  position:fixed;
-  inset:0;
-  background:black;
-  display:none;
-  z-index:9999;
-}
-
-.close-btn{
-  position:absolute;
-  top:10px;
-  right:10px;
-  z-index:10000;
-}
+#game-modal{ position:fixed; inset:0; background:black; display:none; z-index:9999; }
+.close-btn{ position:absolute; top:10px; right:10px; z-index:10000; }
 </style>
 </head>
-
 <body>
 
 <h1>G*mes that are significantly older than me but are still peak.</h1>
 
-        <div class="system-label">Arcade</div>
-        <button onclick="launch('mame', 'arcade/frogger.zip')">Frogger</button>
-        <button onclick="launch('mame', 'arcade/galaga.zip')">Galaga</button>
-        <button onclick="launch('mame', 'arcade/invaders.zip')">Space Invaders</button>
-        <button onclick="launch('mame', 'arcade/pacman.zip')">Pac-Man</button>
-        <button onclick="launch('mame', 'arcade/sonic.zip')">SegaSonic the Hedgehog</button>
-
-        <div class="system-label">Sega Genesis</div>
-        <button onclick="launch('genesis', 'genesis/Bubsy in Claws Encounters of the Furred Kind (USA).md')">Bubsy in Claws Encounters of the Furred Kind</button>
-        <button onclick="launch('genesis', 'genesis/Disney_s Toy Story (USA).md')">Toy Story</button>
-        <button onclick="launch('genesis', 'genesis/Dr. Robotnik_s Mean Bean Machine (USA).md')">Dr. Robotnik's Mean Bean Machine</button>
-        <button onclick="launch('genesis', 'genesis/Garfield - Caught in the Act (USA).md')">Garfield: Caught in the Act</button>
-        <button onclick="launch('genesis', 'genesis/Mickey Mania - The Timeless Adventures of Mickey Mouse (USA).md')">Mickey Mania</button>
-        <button onclick="launch('genesis', 'genesis/Sonic & Knuckles (Blue Sphere) (USA) (Lock-on).md')">Blue Sphere</button>
-        <button onclick="launch('genesis', 'genesis/Sonic the Hedgehog (USA).md')">Sonic the Hedgehog </button>
-        <button onclick="launch('genesis', 'genesis/Sonic The Hedgehog 2 (World).md')">Sonic the Hedgehog 2</button>
-        <button onclick="launch('genesis', 'genesis/Sonic & Knuckles (Sonic the Hedgehog 3 & Knuckles) (USA) (Lock-on).md')">Sonic 3 & Knuckles</button>
-        <button onclick="launch('genesis', 'genesis/Sonic Spinball (USA).md')">Sonic Spinball</button>
-        <button onclick="launch('genesis', 'genesis/Sonic 3D Blast (USA).md')">Sonic 3D Blast</button>
-        <button onclick="launch('genesis', 'genesis/Sonic 3 Complete (Sonic & Knuckles modification) (130810).md')">Sonic 3 Complete</button>
-        <button onclick="launch('genesis', 'genesis/Sonic Classic Heroes (Sonic the Hedgehog 2 modification) (0.10.008a).md')">Sonic Classic Heroes</button>
-        <button onclick="launch('genesis', 'genesis/Sonic 1 Megamix (Sonic the Hedgehog modification) (3.0).md')">Sonic Megamix</button>
-        <button onclick="launch('genesis', 'genesis/Sonic Delta 40mb.bin')">Sonic Delta 40mb</button>
-
-        <div class="menu">
-        <div class="system-label">Sega 32X</div>
-        <button onclick="launch('sega32x', '32x/Knuckles_ Chaotix (1995)(Sega)(JP-US)(en).bin')">Knuckles’ Chaotix</button>
-        <button onclick="launch('sega32x', '32x/Tempo (1995)(Sega)(JP-US)(en).bin')">Tempo</button>
-
-        <div class="system-label">NES</div>
-        <button onclick="launch('nes', 'nes/Action 52 (USA) (Rev A) (Unl).nes')">Action 52</button>
-        <button onclick="launch('nes', 'nes/Balloon Fight (USA).nes')">Balloon Fight</button>
-        <button onclick="launch('nes', 'nes/Donkey Kong Classics (USA, Europe).nes')">Donkey Kong Classics</button>
-        <button onclick="launch('nes', 'nes/DuckTales (USA).nes')">DuckTales</button>
-        <button onclick="launch('nes', 'nes/Kirby_s Adventure (USA).nes')">Kirby’s Adventure</button>
-        <button onclick="launch('nes', 'nes/Legend of Zelda, The (USA).nes')">The Legend of Zelda</button>
-        <button onclick="launch('nes', 'nes/Mario Bros. (World).nes')">Mario Bros.</button>
-        <button onclick="launch('nes', 'nes/Mickey Mousecapade (USA).nes')">Mickey Mousecapade</button>
-        <button onclick="launch('nes', 'nes/Pac-Man (USA) (Namco).nes')">Pac-Man</button>
-        <button onclick="launch('nes', 'nes/Super Mario Bros. (World).nes')">Super Mario Bros.</button>
-        <button onclick="launch('nes', 'nes/Super Mario Bros. 2 (USA).nes')">Super Mario Bros. 2</button>
-        <button onclick="launch('nes', 'nes/Super Mario Bros. 3 (USA).nes')">Super Mario Bros. 3</button>
-        <button onclick="launch('nes', 'nes/Tetris (USA).nes')">Tetris</button>
-        <button onclick="launch('nes', 'nes/Zelda II - The Adventure of Link (USA).nes')">Zelda II: the Adventure of Link</button>
-    </div>
-
-  <div class="system-label">Game Boy</div>
-    <button onclick="launch('gb', 'g*meboy/Bubsy II (USA).gb')">Bubsy II</button>
-    <button onclick="launch('gb', 'g*meboy/Donkey Kong (World) (Rev A) (SGB Enhanced).gb')">Donkey Kong</button>
-    <button onclick="launch('gb', 'g*meboy/Dr. Mario (World).gb')">Dr. Mario</button>
-    <button onclick="launch('gb', 'g*meboy/DuckTales (USA).gb')">DuckTales</button>
-    <button onclick="launch('gb', 'g*meboy/DuckTales 2 (USA).gb')">DuckTales 2</button>
-    <button onclick="launch('gb', 'g*meboy/Felix the Cat (USA, Europe).gb')">Felix the Cat</button>
-    <button onclick="launch('gb', 'g*meboy/Game & Watch Gallery (USA) (Rev A) (SGB Enhanced).gb')">Game & Watch Gallery</button>
-    <button onclick="launch('gb', 'g*meboy/Pac-Man (USA).gb')">Pac-Man</button>
-    <button onclick="launch('gb', 'g*meboy/Pokemon - Blue Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Blue</button>
-    <button onclick="launch('gb', 'g*meboy/Pokemon - Red Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Red</button>
-    <button onclick="launch('gb', 'g*meboy/Pokemon - Yellow Version - Special Pikachu Edition (USA, Europe) (GBC,SGB Enhanced).gb')">Pokémon Yellow</button>
-    <button onclick="launch('gb', 'g*meboy/Super Mario Land (World).gb')">Super Mario Land</button>
-    <button onclick="launch('gb', 'g*meboy/Super Mario Land 2 - 6 Golden Coins (USA, Europe).gb')">Super Mario Land 2 - 6 Golden Coins</button>
-    <button onclick="launch('gb', 'g*meboy/Tetris (World) (Rev A).gb')">Tetris</button>
-    <button onclick="launch('gb', 'g*meboy/Wario Land - Super Mario Land 3 (World).gb')">Wario Land - Super Mario Land 3</button>
-    <button onclick="launch('gb', 'g*meboy/Who Framed Roger Rabbit (USA).gb')">Who Framed Roger Rabbit</button>
-
-    <div class="menu">
-        <div class="system-label">SNES</div>
-        <button onclick="launch('snes', 'snes/Donkey Kong Country (USA) (Rev 2).sfc')">Donkey Kong Country</button>
-        <button onclick="launch('snes', 'snes/Donkey Kong Country 2 - Diddy_s Kong Quest (USA) (En,Fr) (Rev 1).sfc')">Donkey Kong Country 2: Diddy's Kong Quest</button>
-        <button onclick="launch('snes', 'snes/Donkey Kong Country 3 - Dixie Kong_s Double Trouble! (USA) (En,Fr).sfc')">Donkey Kong Country 3: Dixie Kong's Double Trouble</button>
-        <button onclick="launch('snes', 'snes/Kirby_s Avalanche (USA).sfc')">Kirby's Avalanche</button>
-        <button onclick="launch('snes', 'snes/Kirby_s Dream Course (USA).sfc')">Kirby's Dream Course</button>
-        <button onclick="launch('snes', 'snes/Kirby_s Dream Land 3 (USA).sfc')">Kirby's Dream Land 3</button>
-        <button onclick="launch('snes', 'snes/Mario Is Missing! (USA).sfc')">Mario is Missing!</button>
-        <button onclick="launch('snes', 'snes/Super Mario All-Stars (USA).sfc')">Super Mario All-Stars</button>
-        <button onclick="launch('snes', 'snes/Super Mario Kart (USA).sfc')">Super Mario Kart</button>
-        <button onclick="launch('snes', 'snes/Super Mario RPG - Legend of the Seven Stars (USA).sfc')">Super Mario RPG - Legend of the Seven Stars</button>
-        <button onclick="launch('snes', 'snes/Super Mario World (USA).sfc')">Super Mario World</button>
-        <button onclick="launch('snes', 'snes/Super Mario World 2 - Yoshi_s Island (USA).sfc')">Super Mario World 2: Yoshi's Island</button>
-
-        </div>
-
-
-<!-- MODAL (ONLY ONE) -->
+<!-- MODAL -->
 <div id="game-modal">
-  <button id="closeGameBtn" class="close-btn" onclick="closeGame()">Close Game ✖</button>
+  <button id="closeGameBtn" class="close-btn">Close Game ✖</button>
   <div id="emulator-holder" style="position:absolute; inset:0;"></div>
 </div>
 
@@ -169,97 +37,153 @@ const closeGameBtn = document.getElementById("closeGameBtn");
 const holder = document.getElementById("emulator-holder");
 
 modal.style.display = "none";
+closeGameBtn.style.display = "none";
 
-function launch(sys, romPath) {
-    if (emulatorRunning) {
-        console.warn("Emulator already running");
-        return;
-    }
+// CLOSE GAME FUNCTION
+closeGameBtn.addEventListener("click", function() {
+    if (!emulatorRunning) return;
+    holder.innerHTML = "";
+    const oldLoader = document.getElementById("ejs-loader-script");
+    if(oldLoader) oldLoader.remove();
+    modal.style.display = "none";
+    closeGameBtn.style.display = "none";
+    emulatorRunning = false;
+});
+
+// LAUNCH FUNCTION
+function launch(sys, romPath){
+    if(emulatorRunning) return;
     emulatorRunning = true;
 
     modal.style.display = "block";
     closeGameBtn.style.display = "block";
-
     holder.innerHTML = "";
 
-    // -------------------
-    // Select core
-    // -------------------
     let core = "";
-    switch(sys){
-        case "mame": core="mame2003plus"; break;
-        case "nes": core="fceumm"; break;
-        case "snes": core="snes9x"; break;
-        case "genesis": core="genesis_plus_gx"; break;
-        case "sega32x": core="picodrive"; break;
-        case "gb": core="gambatte"; break;
+    if(sys==='nes') core='fceumm';
+    if(sys==='snes') core='snes9x';
+    if(sys==='genesis') core='genesis_plus_gx';
+    if(sys==='sega32x') core='picodrive';
+    if(sys==='mame') core='mame2003plus';
+    if(sys==='gb') core='gambatte';
+
+    // DEFAULT CONTROLS
+    if(sys==='nes' || sys==='gb'){
+        window.EJS_defaultControls = { A:"z", B:"x", START:"enter", SELECT:"shift", UP:"arrowup", DOWN:"arrowdown", LEFT:"arrowleft", RIGHT:"arrowright" };
+    } else if(sys==='snes'){
+        window.EJS_defaultControls = { A:"z", B:"x", X:"c", Y:"v", L:"q", R:"w", START:"enter", SELECT:"shift", UP:"arrowup", DOWN:"arrowdown", LEFT:"arrowleft", RIGHT:"arrowright" };
+    } else if(sys==='genesis' || sys==='sega32x'){
+        window.EJS_defaultControls = { A:"z", B:"x", C:"c", X:"v", Y:"b", Z:"n", MODE:"shift", START:"enter", UP:"arrowup", DOWN:"arrowdown", LEFT:"arrowleft", RIGHT:"arrowright" };
+        window.EJS_coreOptions = { genesis_plus_gx_controller_type:"6button", picodrive_input1:"6button" };
+    } else if(sys==='mame'){
+        window.EJS_defaultControls = { A:"z", B:"x", C:"c", D:"v", E:"b", F:"n", G:"m", UP:"arrowup", DOWN:"arrowdown", LEFT:"arrowleft", RIGHT:"arrowright", START:"enter", SELECT:"shift" };
     }
 
-    // -------------------
-    // Default controls per system
-    // -------------------
-    if(sys === 'nes' || sys === 'gb'){
-        window.EJS_defaultControls = {A:"z", B:"x", START:"enter", SELECT:"shift", UP:"arrowup", DOWN:"arrowdown", LEFT:"arrowleft", RIGHT:"arrowright"};
-    } else if(sys === 'snes'){
-        window.EJS_defaultControls = {A:"z", B:"x", X:"c", Y:"v", L:"q", R:"w", START:"enter", SELECT:"shift", UP:"arrowup", DOWN:"arrowdown", LEFT:"arrowleft", RIGHT:"arrowright"};
-    } else if(sys === 'genesis'){
-        window.EJS_defaultControls = {A:"z", B:"x", C:"c", X:"v", Y:"b", Z:"n", MODE:"shift", START:"enter", UP:"arrowup", DOWN:"arrowdown", LEFT:"arrowleft", RIGHT:"arrowright"};
-        window.EJS_coreOptions = {genesis_plus_gx_controller_type:"6button"};
-    } else if(sys === 'sega32x'){
-        window.EJS_defaultControls = {A:"z", B:"x", C:"c", X:"v", Y:"b", Z:"n", MODE:"shift", START:"enter", UP:"arrowup", DOWN:"arrowdown", LEFT:"arrowleft", RIGHT:"arrowright"};
-        window.EJS_coreOptions = {picodrive_input1:"6button"};
-    } else if(sys === 'mame'){
-        window.EJS_defaultControls = {A:"z", B:"x", C:"c", D:"v", E:"b", F:"n", G:"m", UP:"arrowup", DOWN:"arrowdown", LEFT:"arrowleft", RIGHT:"arrowright", START:"enter", SELECT:"shift"};
-    }
+    // HOTKEYS
+    window.EJS_hotkeys = { fastForward:"f", rewind:"r", slowMotion:"e", saveState:"i", loadState:"k", nextStateSlot:"l" };
 
-    // -------------------
-    // Hotkeys
-    // -------------------
-    window.EJS_hotkeys = {fastForward:"f", rewind:"r", slowMotion:"e", saveState:"i", loadState:"k", nextStateSlot:"l"};
+    // EMULATOR CONFIG
+    window.EJS_player = "#emulator-holder";
+    window.EJS_core = core;
+    window.EJS_gameUrl = repoBase + romPath;
+    window.EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+    window.EJS_startOnLoaded = true;
+    window.EJS_gameName = sys + "_controls_v1";
 
-    // -------------------
-    // Emulator config
-    // -------------------
-    window.EJS_player="#emulator-holder";
-    window.EJS_core=core;
-    window.EJS_gameUrl=repoBase + romPath;
-    window.EJS_pathtodata="https://cdn.emulatorjs.org/stable/data/";
-    window.EJS_startOnLoaded=true;
-
-    // -------------------
-    // Remove old loader (reuse variable name to avoid SyntaxError)
-    // -------------------
-    let oldLoader = document.getElementById("ejs-loader-script");
-    if(oldLoader) oldLoader.remove();
-
-    // -------------------
-    // Debug
-    // -------------------
+    // DEBUG
     console.log("Launching:", sys);
     console.log("ROM:", window.EJS_gameUrl);
     console.log("Core:", core);
     console.log("Holder size:", holder.offsetWidth, holder.offsetHeight);
 
-    // -------------------
-    // Load EmulatorJS
-    // -------------------
+    // REMOVE OLD LOADER
+    const oldLoader = document.getElementById("ejs-loader-script");
+    if(oldLoader) oldLoader.remove();
+
+    // LOAD EMULATORJS
     const loader = document.createElement("script");
     loader.id = "ejs-loader-script";
     loader.src = "https://cdn.emulatorjs.org/stable/data/loader.js?t=" + Date.now();
     document.body.appendChild(loader);
 }
-
-function closeGame() {
-    if(window.EJS_instance) {
-        window.EJS_instance.destroy(); // properly stop WASM + audio
-        window.EJS_instance = null;
-    }
-    holder.innerHTML = "";
-    modal.style.display = "none";
-    closeGameBtn.style.display = "none";
-    emulatorRunning = false;
-}
 </script>
+
+<!-- ================== GAME BUTTONS ================== -->
+<div class="system-label">Arcade</div>
+<button onclick="launch('mame','arcade/frogger.zip')">Frogger</button>
+<button onclick="launch('mame','arcade/galaga.zip')">Galaga</button>
+<button onclick="launch('mame','arcade/invaders.zip')">Space Invaders</button>
+<button onclick="launch('mame','arcade/pacman.zip')">Pac-Man</button>
+<button onclick="launch('mame','arcade/sonic.zip')">SegaSonic the Hedgehog</button>
+
+<div class="system-label">Sega Genesis</div>
+<button onclick="launch('genesis','genesis/Bubsy in Claws Encounters of the Furred Kind (USA).md')">Bubsy</button>
+<button onclick="launch('genesis','genesis/Disney_s Toy Story (USA).md')">Toy Story</button>
+<button onclick="launch('genesis','genesis/Dr. Robotnik_s Mean Bean Machine (USA).md')">Dr. Robotnik's Mean Bean Machine</button>
+<button onclick="launch('genesis','genesis/Garfield - Caught in the Act (USA).md')">Garfield</button>
+<button onclick="launch('genesis','genesis/Mickey Mania - The Timeless Adventures of Mickey Mouse (USA).md')">Mickey Mania</button>
+<button onclick="launch('genesis','genesis/Sonic & Knuckles (Blue Sphere) (USA) (Lock-on).md')">Blue Sphere</button>
+<button onclick="launch('genesis','genesis/Sonic the Hedgehog (USA).md')">Sonic 1</button>
+<button onclick="launch('genesis','genesis/Sonic The Hedgehog 2 (World).md')">Sonic 2</button>
+<button onclick="launch('genesis','genesis/Sonic & Knuckles (Sonic the Hedgehog 3 & Knuckles) (USA) (Lock-on).md')">Sonic 3 & Knuckles</button>
+<button onclick="launch('genesis','genesis/Sonic Spinball (USA).md')">Sonic Spinball</button>
+<button onclick="launch('genesis','genesis/Sonic 3D Blast (USA).md')">Sonic 3D Blast</button>
+<button onclick="launch('genesis','genesis/Sonic 3 Complete (Sonic & Knuckles modification) (130810).md')">Sonic 3 Complete</button>
+<button onclick="launch('genesis','genesis/Sonic Classic Heroes (Sonic the Hedgehog 2 modification) (0.10.008a).md')">Sonic Classic Heroes</button>
+<button onclick="launch('genesis','genesis/Sonic 1 Megamix (Sonic the Hedgehog modification) (3.0).md')">Sonic Megamix</button>
+<button onclick="launch('genesis','genesis/Sonic Delta 40mb.bin')">Sonic Delta 40mb</button>
+
+<div class="system-label">Sega 32X</div>
+<button onclick="launch('sega32x','32x/Knuckles_ Chaotix (1995)(Sega)(JP-US)(en).bin')">Knuckles’ Chaotix</button>
+<button onclick="launch('sega32x','32x/Tempo (1995)(Sega)(JP-US)(en).bin')">Tempo</button>
+
+<div class="system-label">NES</div>
+<button onclick="launch('nes','nes/Action 52 (USA) (Rev A) (Unl).nes')">Action 52</button>
+<button onclick="launch('nes','nes/Balloon Fight (USA).nes')">Balloon Fight</button>
+<button onclick="launch('nes','nes/Donkey Kong Classics (USA, Europe).nes')">Donkey Kong Classics</button>
+<button onclick="launch('nes','nes/DuckTales (USA).nes')">DuckTales</button>
+<button onclick="launch('nes','nes/Kirby_s Adventure (USA).nes')">Kirby’s Adventure</button>
+<button onclick="launch('nes','nes/Legend of Zelda, The (USA).nes')">Legend of Zelda</button>
+<button onclick="launch('nes','nes/Mario Bros. (World).nes')">Mario Bros.</button>
+<button onclick="launch('nes','nes/Mickey Mousecapade (USA).nes')">Mickey Mousecapade</button>
+<button onclick="launch('nes','nes/Pac-Man (USA) (Namco).nes')">Pac-Man</button>
+<button onclick="launch('nes','nes/Super Mario Bros. (World).nes')">Super Mario Bros.</button>
+<button onclick="launch('nes','nes/Super Mario Bros. 2 (USA).nes')">Super Mario Bros. 2</button>
+<button onclick="launch('nes','nes/Super Mario Bros. 3 (USA).nes')">Super Mario Bros. 3</button>
+<button onclick="launch('nes','nes/Tetris (USA).nes')">Tetris</button>
+<button onclick="launch('nes','nes/Zelda II - The Adventure of Link (USA).nes')">Zelda II</button>
+
+<div class="system-label">Game Boy</div>
+<button onclick="launch('gb','g*meboy/Bubsy II (USA).gb')">Bubsy II</button>
+<button onclick="launch('gb','g*meboy/Donkey Kong (World) (Rev A) (SGB Enhanced).gb')">Donkey Kong</button>
+<button onclick="launch('gb','g*meboy/Dr. Mario (World).gb')">Dr. Mario</button>
+<button onclick="launch('gb','g*meboy/DuckTales (USA).gb')">DuckTales</button>
+<button onclick="launch('gb','g*meboy/DuckTales 2 (USA).gb')">DuckTales 2</button>
+<button onclick="launch('gb','g*meboy/Felix the Cat (USA, Europe).gb')">Felix the Cat</button>
+<button onclick="launch('gb','g*meboy/Game & Watch Gallery (USA) (Rev A) (SGB Enhanced).gb')">Game & Watch Gallery</button>
+<button onclick="launch('gb','g*meboy/Pac-Man (USA).gb')">Pac-Man</button>
+<button onclick="launch('gb','g*meboy/Pokemon - Blue Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Blue</button>
+<button onclick="launch('gb','g*meboy/Pokemon - Red Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Red</button>
+<button onclick="launch('gb','g*meboy/Pokemon - Yellow Version - Special Pikachu Edition (USA, Europe) (GBC,SGB Enhanced).gb')">Pokémon Yellow</button>
+<button onclick="launch('gb','g*meboy/Super Mario Land (World).gb')">Super Mario Land</button>
+<button onclick="launch('gb','g*meboy/Super Mario Land 2 - 6 Golden Coins (USA, Europe).gb')">Super Mario Land 2</button>
+<button onclick="launch('gb','g*meboy/Tetris (World) (Rev A).gb')">Tetris</button>
+<button onclick="launch('gb','g*meboy/Wario Land - Super Mario Land 3 (World).gb')">Wario Land</button>
+<button onclick="launch('gb','g*meboy/Who Framed Roger Rabbit (USA).gb')">Who Framed Roger Rabbit</button>
+
+<div class="system-label">SNES</div>
+<button onclick="launch('snes','snes/Donkey Kong Country (USA) (Rev 2).sfc')">Donkey Kong Country</button>
+<button onclick="launch('snes','snes/Donkey Kong Country 2 - Diddy_s Kong Quest (USA) (En,Fr) (Rev 1).sfc')">DKC 2</button>
+<button onclick="launch('snes','snes/Donkey Kong Country 3 - Dixie Kong_s Double Trouble! (USA) (En,Fr).sfc')">DKC 3</button>
+<button onclick="launch('snes','snes/Kirby_s Avalanche (USA).sfc')">Kirby's Avalanche</button>
+<button onclick="launch('snes','snes/Kirby_s Dream Course (USA).sfc')">Kirby's Dream Course</button>
+<button onclick="launch('snes','snes/Kirby_s Dream Land 3 (USA).sfc')">Kirby's Dream Land 3</button>
+<button onclick="launch('snes','snes/Mario Is Missing! (USA).sfc')">Mario is Missing!</button>
+<button onclick="launch('snes','snes/Super Mario All-Stars (USA).sfc')">Super Mario All-Stars</button>
+<button onclick="launch('snes','snes/Super Mario Kart (USA).sfc')">Super Mario Kart</button>
+<button onclick="launch('snes','snes/Super Mario RPG - Legend of the Seven Stars (USA).sfc')">Super Mario RPG</button>
+<button onclick="launch('snes','snes/Super Mario World (USA).sfc')">Super Mario World</button>
+<button onclick="launch('snes','snes/Super Mario World 2 - Yoshi_s Island (USA).sfc')">Yoshi's Island</button>
 
 </body>
 </html>
