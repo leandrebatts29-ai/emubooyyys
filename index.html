@@ -197,6 +197,10 @@ function launch(sys,romPath){
 // -----------------------------
 // 1. Default controls per system
 // -----------------------------
+
+  const oldLoader=document.getElementById("ejs-loader-script");
+if(oldLoader) oldLoader.remove();
+
 if(sys === 'nes' || sys === 'gb'){
     window.EJS_defaultControls = {
         A:"z", B:"x",
