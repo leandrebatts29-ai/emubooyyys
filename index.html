@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<let emulatorRunning = false;>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -127,6 +129,14 @@ const repoBase = "https://leandrebatts29-ai.github.io/emubooyyys/";
     
 function launch(sys, romPath) {
 
+
+    if (emulatorRunning) {
+  alert("Reload the page before launching another game.");
+  return;
+}
+emulatorRunning = true;
+
+
   // ------------------------------------------------
   // 1. SHOW MODAL
   // ------------------------------------------------
@@ -162,6 +172,7 @@ function launch(sys, romPath) {
   else if (sys === 'genesis') coreToUse = 'genesis_plus_gx';
   else if (sys === 'sega32x') coreToUse = 'picodrive';
   else if (sys === 'mame') coreToUse = 'mame2003plus';
+  else if (sys === 'gb') coreToUse = 'gambatte';
 
 
   // ------------------------------------------------
