@@ -191,8 +191,73 @@ function launch(sys,romPath){
  window.EJS_player="#emulator-holder";
  window.EJS_core=core;
  window.EJS_gameUrl=repoBase+romPath;
- window.EJS_pathtodata="https://cdn.emulatorjs.org/stable/data/";
+ window.EJS_pathtodata = "https://cdn.emulatorjs.org/latest/data/";
  window.EJS_startOnLoaded=true;
+
+// -----------------------------
+// 1. Default controls per system
+// -----------------------------
+if(sys === 'nes' || sys === 'gb'){
+    window.EJS_defaultControls = {
+        A:"z", B:"x",
+        START:"enter", SELECT:"shift",
+        UP:"arrowup", DOWN:"arrowdown",
+        LEFT:"arrowleft", RIGHT:"arrowright"
+    };
+}
+else if(sys === 'snes'){
+    window.EJS_defaultControls = {
+        A:"z", B:"x", X:"c", Y:"v",
+        L:"q", R:"w",
+        START:"enter", SELECT:"shift",
+        UP:"arrowup", DOWN:"arrowdown",
+        LEFT:"arrowleft", RIGHT:"arrowright"
+    };
+}
+else if(sys === 'genesis'){
+    window.EJS_defaultControls = {
+        A:"z", B:"x", C:"c",
+        X:"v", Y:"b", Z:"n",
+        MODE:"shift", START:"enter",
+        UP:"arrowup", DOWN:"arrowdown",
+        LEFT:"arrowleft", RIGHT:"arrowright"
+    };
+    window.EJS_coreOptions = {
+        genesis_plus_gx_controller_type: "6button"
+    };
+}
+else if(sys === 'sega32x'){
+    window.EJS_defaultControls = {
+        A:"z", B:"x", C:"c",
+        X:"v", Y:"b", Z:"n",
+        MODE:"shift", START:"enter",
+        UP:"arrowup", DOWN:"arrowdown",
+        LEFT:"arrowleft", RIGHT:"arrowright"
+    };
+    window.EJS_coreOptions = {
+        picodrive_input1: "6button"
+    };
+}
+else if(sys === 'mame'){
+    window.EJS_defaultControls = {
+        A:"z", B:"x", C:"c", D:"v", E:"b", F:"n", G:"m",
+        UP:"arrowup", DOWN:"arrowdown",
+        LEFT:"arrowleft", RIGHT:"arrowright",
+        START:"enter", SELECT:"shift"
+    };
+}
+
+// -----------------------------
+// 2. Hotkeys (optional but recommended)
+// -----------------------------
+window.EJS_hotkeys = {
+    fastForward:"f",
+    rewind:"r",
+    slowMotion:"e",
+    saveState:"i",
+    loadState:"k",
+    nextStateSlot:"l"
+};
 
  const oldLoader=document.getElementById("ejs-loader-script");
  if(oldLoader) oldLoader.remove();
@@ -203,11 +268,17 @@ function launch(sys,romPath){
  document.body.appendChild(loader);
 }
 
-function closeGame(){
- emulatorRunning=false;
- modal.style.display="none";
- holder.innerHTML="";
+function closeGame() {
+    const holder = document.getElementById('emulator-holder');
+
+    // Remove emulator instance properly
+    holder.innerHTML = "";
+    
+    document.getElementById('game-modal').style.display = 'none';
+    emulatorRunning = false;
+    document.getElementById('closeGameBtn').style.display = "none";
 }
+
 </script>
 
 </body>
