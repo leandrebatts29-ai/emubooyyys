@@ -127,16 +127,33 @@ const repoBase = "https://leandrebatts29-ai.github.io/emubooyyys/";
     
 function launch(sys, romPath) {
 
-    
   // ------------------------------------------------
-  // 1. SHOW MODAL + CLEAR OLD EMULATOR INSTANCE
+  // 1. SHOW MODAL
   // ------------------------------------------------
-  document.getElementById('game-modal').style.display = 'block';
-  const container = document.getElementById('emulator-holder');
-  container.innerHTML = '<div id="ejs-instance"></div>';
+  const modal = document.getElementById('game-modal');
+  modal.style.display = 'block';
+
 
   // ------------------------------------------------
-  // 2. DETECT SYSTEM + CHOOSE CORE
+  // 2. RESET EMULATOR CONTAINER (IMPORTANT)
+  // ------------------------------------------------
+  let holder = document.getElementById('emulator-holder');
+
+  if (!holder) {
+    holder = document.createElement('div');
+    holder.id = 'emulator-holder';
+    modal.appendChild(holder);
+  }
+
+  holder.innerHTML = "";
+  holder.style.position = "absolute";
+  holder.style.inset = "0";
+  holder.style.width = "100%";
+  holder.style.height = "100%";
+
+
+  // ------------------------------------------------
+  // 3. SELECT CORE
   // ------------------------------------------------
   let coreToUse = "";
 
@@ -148,136 +165,99 @@ function launch(sys, romPath) {
 
 
   // ------------------------------------------------
-  // 3. DEFAULT CONTROLS PER SYSTEM
+  // 4. DEFAULT CONTROLS
   // ------------------------------------------------
-
-  // --- ARCADE ---
   if (sys === 'mame') {
     window.EJS_defaultControls = {
-      "A": "z",
-      "B": "x",
-      "C": "c",
-      "D": "v",
-      "E": "b",
-      "F": "n",
-      "G": "m",
-      "UP": "arrowup",
-      "DOWN": "arrowdown",
-      "LEFT": "arrowleft",
-      "RIGHT": "arrowright",
-      "START": "enter",
-      "SELECT": "shift"   // coin
+      A:"z", B:"x", C:"c", D:"v", E:"b", F:"n", G:"m",
+      UP:"arrowup", DOWN:"arrowdown",
+      LEFT:"arrowleft", RIGHT:"arrowright",
+      START:"enter", SELECT:"shift"
     };
   }
 
-  // --- GENESIS / 32X / SEGA CD ---
   else if (sys === 'genesis' || sys === 'sega32x') {
     window.EJS_defaultControls = {
-      "A": "z",
-      "B": "x",
-      "C": "c",
-      "X": "v",
-      "Y": "b",
-      "Z": "n",
-      "MODE": "shift",
-      "START": "enter",
-      "UP": "arrowup",
-      "DOWN": "arrowdown",
-      "LEFT": "arrowleft",
-      "RIGHT": "arrowright"
+      A:"z", B:"x", C:"c",
+      X:"v", Y:"b", Z:"n",
+      MODE:"shift", START:"enter",
+      UP:"arrowup", DOWN:"arrowdown",
+      LEFT:"arrowleft", RIGHT:"arrowright"
     };
 
-    // force 6 button controller
     window.EJS_coreOptions = {
-      "genesis_plus_gx_controller_type": "6button",
-      "picodrive_input1": "6button"
+      genesis_plus_gx_controller_type: "6button",
+      picodrive_input1: "6button"
     };
   }
 
-  // --- NES / GAME BOY ---
-  else if (sys === 'nes' || sys === 'gb' || sys === 'gba') {
+  else if (sys === 'nes' || sys === 'gb' ){
     window.EJS_defaultControls = {
-      "A": "z",
-      "B": "x",
-      "START": "enter",
-      "SELECT": "shift",
-      "UP": "arrowup",
-      "DOWN": "arrowdown",
-      "LEFT": "arrowleft",
-      "RIGHT": "arrowright"
+      A:"z", B:"x",
+      START:"enter", SELECT:"shift",
+      UP:"arrowup", DOWN:"arrowdown",
+      LEFT:"arrowleft", RIGHT:"arrowright"
     };
   }
 
-  // --- SNES ---
   else if (sys === 'snes') {
     window.EJS_defaultControls = {
-      "A": "z",
-      "B": "x",
-      "X": "c",
-      "Y": "v",
-      "L": "q",
-      "R": "w",
-      "START": "enter",
-      "SELECT": "shift",
-      "UP": "arrowup",
-      "DOWN": "arrowdown",
-      "LEFT": "arrowleft",
-      "RIGHT": "arrowright"
+      A:"z", B:"x", X:"c", Y:"v",
+      L:"q", R:"w",
+      START:"enter", SELECT:"shift",
+      UP:"arrowup", DOWN:"arrowdown",
+      LEFT:"arrowleft", RIGHT:"arrowright"
     };
   }
 
 
   // ------------------------------------------------
-  // 4. GLOBAL HOTKEYS (ALL SYSTEMS)
+  // 5. HOTKEYS
   // ------------------------------------------------
   window.EJS_hotkeys = {
-    "fastForward": "f",
-    "rewind": "r",
-    "slowMotion": "e",
-    "saveState": "i",
-    "loadState": "k",
-    "nextStateSlot": "l"
+    fastForward:"f",
+    rewind:"r",
+    slowMotion:"e",
+    saveState:"i",
+    loadState:"k",
+    nextStateSlot:"l"
   };
 
 
   // ------------------------------------------------
-  // 5. FORCE SEPARATE CONTROL PROFILE PER SYSTEM
+  // 6. EMULATOR CONFIG (SET BEFORE LOADER)
   // ------------------------------------------------
+  window.EJS_player = "#emulator-holder";
+  window.EJS_core = coreToUse;
+  window.EJS_gameUrl = repoBase + romPath;
+  window.EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+  window.EJS_startOnLoaded = true;
   window.EJS_gameName = sys + "_controls_v1";
 
 
   // ------------------------------------------------
-  // 6. EMULATOR CONFIG
+  // 7. DEBUG (optional but helpful)
   // ------------------------------------------------
-  window.EJS_player = '#emulator-holder';
-  window.EJS_core = coreToUse;
-  window.EJS_gameUrl = repoBase + romPath;
-  window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-  window.EJS_startOnLoaded = true;
-
-// ------------------------------------------------
-// DEBUG INFO
-// ------------------------------------------------
-console.log("Launching system:", sys);
-console.log("ROM URL:", repoBase + romPath);
-console.log("Core:", coreToUse);
-console.log("Player element exists:", !!document.getElementById('emulator-holder'));
-console.log("Player element size:",
-  document.getElementById('emulator-holder')?.offsetWidth,
-  document.getElementById('emulator-holder')?.offsetHeight
-);
+  console.log("Launching:", sys);
+  console.log("ROM:", window.EJS_gameUrl);
+  console.log("Core:", coreToUse);
+  console.log("Holder size:", holder.offsetWidth, holder.offsetHeight);
 
 
   // ------------------------------------------------
-  // 7. LOAD EMULATORJS (ALWAYS LAST)
+  // 8. REMOVE OLD LOADER
   // ------------------------------------------------
-  const oldLoader = document.getElementById('ejs-loader-script');
+  const oldLoader = document.getElementById("ejs-loader-script");
   if (oldLoader) oldLoader.remove();
 
-  const loader = document.createElement('script');
-  loader.id = 'ejs-loader-script';
-  loader.src = 'https://cdn.emulatorjs.org/stable/data/loader.js?t=' + Date.now();
-  document.head.appendChild(loader);
+
+  // ------------------------------------------------
+  // 9. LOAD EMULATORJS (ALWAYS LAST)
+  // ------------------------------------------------
+  const loader = document.createElement("script");
+  loader.id = "ejs-loader-script";
+  loader.src = "https://cdn.emulatorjs.org/stable/data/loader.js?t=" + Date.now();
+  document.body.appendChild(loader);
 }
 
 function closeGame() {
@@ -286,8 +266,6 @@ function closeGame() {
 }
 
 </script>
-
-<script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
     
 </body>
 </html>
