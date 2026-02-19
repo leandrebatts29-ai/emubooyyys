@@ -1,108 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Old Vidja G*mes</title>
-    <style>
-        body { 
-            background: #1a1a1a; 
-            color: white; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            text-align: center; 
-            margin: 0;
-            padding: 20px;
-        }
-        h1 { color: #ffcc00; text-shadow: 2px 2px #000; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Old Vidja G*mes</title>
+<style>
+    body { 
+        background: #1a1a1a; 
+        color: white; 
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        text-align: center; 
+        margin: 0;
+        padding: 20px;
+    }
+    h1 { color: #ffcc00; text-shadow: 2px 2px #000; }
 
-        <button id="close-game-btn" style="display:none;">Close Game</button>
+    /* Game container */
+    #game-container { 
+        width: 100%; 
+        max-width: 800px; 
+        height: 600px; 
+        margin: 20px auto; 
+        background: #000; 
+        border: 4px solid #333;
+        border-radius: 8px;
+        overflow: hidden;
+    }
 
-        /* The Game Display Area */
-        #game-container { 
-            width: 100%; 
-            max-width: 800px; 
-            height: 600px; 
-            margin: 20px auto; 
-            background: #000; 
-            border: 4px solid #333;
-            border-radius: 8px;
-            overflow: hidden;
-        }
+    #game-container.fullscreen {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 800px;
+        height: 600px;
+        background: #000;
+        border: 4px solid #333;
+        border-radius: 8px;
+        z-index: 9999;
+        overflow: hidden;
+    }
 
-#game-container.fullscreen {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%); /* center horizontally */
-    width: 800px;   /* keeps your 4:3 size */
-    height: 600px;
-    background: #000;
-    border: 4px solid #333;
-    border-radius: 8px;
-    z-index: 9999;
-    overflow: hidden;
-}
+    /* Close button */
+    #close-game-btn {
+        display: none;
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 10001;
+        padding: 8px 12px;
+        font-weight: bold;
+        background: #ffcc00;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    #close-game-btn:hover { background: #ffc000; }
 
-#close-game-btn {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    z-index: 10001;
-    padding: 8px 12px;
-    font-weight: bold;
-    background: #ffcc00;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+    /* Menu grid */
+    .menu { 
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+        max-width: 1000px;
+        margin: 20px auto;
+        padding: 10px;
+    }
+    button { 
+        padding: 12px; 
+        background: #444; 
+        color: white; 
+        border: none; 
+        border-radius: 4px; 
+        cursor: pointer; 
+        transition: background 0.2s;
+        font-weight: bold;
+    }
+    button:hover { background: #666; border-bottom: 2px solid #ffcc00; }
+    button:active { background: #222; }
 
-#close-game-btn:hover {
-    background: #ffc000;
-}
+    .system-label { 
+        grid-column: 1 / -1; 
+        text-align: left; 
+        border-bottom: 1px solid #444; 
+        margin-top: 20px;
+        color: #aaa;
+        font-size: 0.9em;
+        text-transform: uppercase;
+    }
 
-
-        /* Organizing the buttons into a nice grid */
-        .menu { 
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 10px;
-        }
-
-        button { 
-            padding: 12px; 
-            background: #444; 
-            color: white; 
-            border: none; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            transition: background 0.2s;
-            font-weight: bold;
-        }
-
-        button:hover { background: #666; border-bottom: 2px solid #ffcc00; }
-        button:active { background: #222; }
-
-        .system-label { 
-            grid-column: 1 / -1; 
-            text-align: left; 
-            border-bottom: 1px solid #444; 
-            margin-top: 20px;
-            color: #aaa;
-            font-size: 0.9em;
-            text-transform: uppercase;
-        }
-    </style>
+    p.description {
+        color: #ccc; 
+        font-size: 1em; 
+        max-width: 800px; 
+        margin: 10px auto;
+    }
+</style>
 </head>
 <body>
 
-    <h1>Peak g*mes that outage me by several decades</h1>
-<p style="color:#ccc; font-size:1em; max-width:800px; margin:10px auto;">
-    Old retro g*mes that I [LEGALLY PURCHASED AND DUMPED], that you can play! Just click on one of the g*mes, and it'll play . Click the fullscreen button for a better experience.
+<h1>Peak g*mes that outage me by several decades</h1>
+<p class="description">
+    Old retro g*mes that I [LEGALLY PURCHASED AND DUMPED], that you can play! Just click a game to play. Click the fullscreen button for a better experience.
 </p>
 
+<!-- Close button -->
+<button id="close-game-btn">Close Game</button>
+
+<!-- Game display -->
+<div id="game-container">
+    <div id="game">
+        <p style="padding-top: 250px; color: #666;">Select a g*me to play ancient peak</p>
+    </div>
+</div>
+
+<!-- Menu example (add your other systems as needed) -->
 <div class="menu">
         <div class="system-label">Sega 32X</div>
         <button onclick="loadGame('sega32x', '32x/Knuckles_ Chaotix (1995)(Sega)(JP-US)(en).bin')">Knuckles’ Chaotix</button>
@@ -187,20 +199,16 @@
 </div>
         </div>
 
-    <div id="game-container">
-        <div id="game">
-            <p style="padding-top: 250px; color: #666;">Select a g*me to play ancient peak</p>
-        </div>
-    </div>
-
-    <script>
+<script>
 function loadGame(system, url) {
     const container = document.getElementById('game-container');
     const closeBtn = document.getElementById('close-game-btn');
+    const gameDiv = document.getElementById('game');
 
     // Clear previous game
-    document.getElementById('game').innerHTML = '';
+    gameDiv.innerHTML = '';
 
+    // EmulatorJS core map
     const coreMap = {
         nes: 'fceumm',
         snes: 'snes9x',
@@ -210,7 +218,7 @@ function loadGame(system, url) {
         gb: 'gambatte'
     };
 
-    // reset globals
+    // Reset any previous emulator
     delete window.EJS_loaded;
     delete window.EJS_emulator;
     delete window.Module;
@@ -221,33 +229,37 @@ function loadGame(system, url) {
     window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
     window.EJS_startOnLoaded = true;
 
+    // Remove old loader if exists
     const oldScript = document.getElementById('ejs-loader');
     if (oldScript) oldScript.remove();
 
+    // Add loader
     const script = document.createElement('script');
     script.id = 'ejs-loader';
     script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
 
-  script.onload = () => {
-    const checkLoaded = setInterval(() => {
-        if (window.EJS_loaded) {
-            clearInterval(checkLoaded);
+    // Wait for emulator to fully load
+    script.onload = () => {
+        const checkLoaded = setInterval(() => {
+            if (window.EJS_loaded) {
+                clearInterval(checkLoaded);
 
-            // Add fullscreen class AFTER the emulator is ready
-            container.classList.add('fullscreen');
-            closeBtn.style.display = 'block';
+                // Activate fullscreen
+                container.classList.add('fullscreen');
 
-            // Scroll to top so overlay is visible
-            window.scrollTo({ top: 0, behavior: 'instant' });
+                // Show close button
+                closeBtn.style.display = 'block';
+                closeBtn.onclick = () => location.reload();
 
-            // Close button reloads page
-            closeBtn.onclick = () => location.reload();
-        }
-    }, 100); // check every 100ms
-};
+                // Scroll page to top
+                window.scrollTo({ top: 0, behavior: 'instant' });
+            }
+        }, 100);
+    };
 
     document.body.appendChild(script);
 }
-    </script>
+</script>
+
 </body>
 </html>
