@@ -137,60 +137,80 @@ function resetControls(sys){
 }
 
 
-function launch(sys, romPath){
-    if(emulatorRunning){ console.warn("Emulator already running"); return; }
-    emulatorRunning = true;
-    modal.style.display = "block";
-    closeGameBtn.style.display = "block";
+async function launch(system, rom, core) {
 
+    console.log("Launching:", system);
+
+    /* ---------- HARD RESET PREVIOUS INSTANCE ---------- */
+
+    emulatorRunning = false;
+
+    // stop audio + threads
+    if (window.EJS_emulator) {
+        try { window.EJS_emulator.exit(); } catch(e){}
+    }
+
+    // remove canvas / UI
+    const holder = document.getElementById("game");
     holder.innerHTML = "";
-    resetControls(sys);
 
-    let core="";
-    if(sys==='mame') core='mame2003plus';
-    else if(sys==='nes') core='fceumm';
-    else if(sys==='snes') core='snes9x';
-    else if(sys==='genesis') core='genesis_plus_gx';
-    else if(sys==='sega32x') core='picodrive';
-    else if(sys==='gb') core='gambatte';
+    // delete ALL EmulatorJS globals (prevents redeclaration crash)
+    [
+        "EJS_player",
+        "EJS_gameUrl",
+        "EJS_core",
+        "EJS_pathtodata",
+        "EJS_startOnLoaded",
+        "EJS_emulator",
+        "EJS_controls",
+        "EJS_STORAGE"
+    ].forEach(k => delete window[k]);
 
-    window.EJS_player="#emulator-holder";
-    window.EJS_core=core;
-    window.EJS_gameUrl = repoBase + romPath.split('/').map(encodeURIComponent).join('/');
-    window.EJS_pathtodata="https://cdn.emulatorjs.org/stable/data/";
-    window.EJS_startOnLoaded=true;
 
-    // Remove old loader once
-    const oldLoader=document.getElementById("ejs-loader-script");
-    if(oldLoader) oldLoader.remove();
+    /* ---------- REQUIRED DEFAULT CONTROLS ---------- */
+    /* this prevents the “reading 0” crash */
 
-    // Append loader (stable)
-    const loader=document.createElement("script");
-    loader.id="ejs-loader-script";
-    loader.src="https://cdn.emulatorjs.org/stable/data/loader.js?t="+Date.now();
-    document.body.appendChild(loader);
+    window.EJS_controls = {
+        0: {
+            up:38, down:40, left:37, right:39,
+            a:90, b:88, x:65, y:83,
+            start:13, select:16
+        }
+    };
+
+
+    /* ---------- SET EMULATOR CONFIG ---------- */
+
+    window.EJS_player = "#game";
+    window.EJS_gameUrl = rom;
+    window.EJS_core = core;
+    window.EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+    window.EJS_startOnLoaded = true;
+
+
+    /* ---------- LOAD LOADER ONCE ---------- */
+
+    if (!window.__EJS_LOADER__) {
+        window.__EJS_LOADER__ = true;
+
+        const s = document.createElement("script");
+        s.src = "https://cdn.emulatorjs.org/stable/data/loader.js";
+        document.body.appendChild(s);
+
+    } else {
+        // loader already present → just start emulator
+        new EmulatorJS(EJS_player);
+    }
+
+    emulatorRunning = true;
 }
 
 function closeGame() {
-    // destroy the DOM holder
-    holder.innerHTML = "";
-
-    // reset globals
-    try {
-        delete window.EJS_PLAYER;
-        delete window.EJS_core;
-        delete window.EJS_gameUrl;
-        delete window.EJS_defaultControls;
-        delete window.EJS_coreOptions;
-        delete window.EJS_pathtodata;
-        delete window.EJS_startOnLoaded;
-        delete window.EJS_hotkeys;
-        delete window.EJS_STORAGE;
-    } catch(e) {}
-
-    modal.style.display = "none";
+    if (window.EJS_emulator) {
+        try { window.EJS_emulator.exit(); } catch(e){}
+    }
+    document.getElementById("game").innerHTML = "";
     emulatorRunning = false;
-    closeGameBtn.style.display = "none";
 }
 
 </script>
