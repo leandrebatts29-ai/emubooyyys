@@ -204,7 +204,7 @@ window.EJS_inputConfig = {
 function loadGame(system, url) {
     const container = document.getElementById('game-container');
     const closeBtn = document.getElementById('close-game-btn');
-
+    
     // Clear previous game
     document.getElementById('game').innerHTML = '';
 
@@ -215,7 +215,7 @@ function loadGame(system, url) {
         sega32x: 'picodrive',
         mame: 'mame2003_plus',
         gb: 'gambatte',
-        stella: 'atari2600'
+        stella: 'stella'
     };
 
     // reset globals
@@ -226,7 +226,7 @@ function loadGame(system, url) {
     window.EJS_player = '#game';
     window.EJS_core = coreMap[system];
     window.EJS_gameUrl = encodeURI(url);
-    window.EJS_pathtodata = 'https://cdn.emulatorjs.org/latest/data/';
+    window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
     window.EJS_startOnLoaded = true;
 
     const oldScript = document.getElementById('ejs-loader');
