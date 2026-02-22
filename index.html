@@ -223,19 +223,17 @@ function loadGame(system, url) {
     delete window.EJS_emulator;
     delete window.Module;
 
-    window.EJS_player = '#game';
-    window.EJS_core = coreMap[system];
-    window.EJS_gameUrl = encodeURI(url);
-    window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-    window.EJS_startOnLoaded = true;
+window.EJS_player = '#game';
+window.EJS_core = coreMap[system];
+window.EJS_gameUrl = encodeURI(url);
 
-    const oldScript = document.getElementById('ejs-loader');
-    if (oldScript) oldScript.remove();
+window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+window.EJS_startOnLoaded = true;
 
-    const script = document.createElement('script');
-    script.id = 'ejs-loader';
-    script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+// ⭐ IMPORTANT — prevents missing legacy core download
+window.EJS_forceLegacyCores = false;
 
+script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
     script.onload = () => {
         const checkLoaded = setInterval(() => {
             if (window.EJS_loaded) {
