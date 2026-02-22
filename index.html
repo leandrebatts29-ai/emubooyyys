@@ -123,6 +123,16 @@
         <button onclick="loadGame('mame', 'arcade/pacman.zip')">Pac-Man</button>
         <button onclick="loadGame('mame', 'arcade/sonic.zip')">SegaSonic the Hedgehog</button>
 
+ <div class="system-label">Atari 2600</div>
+<button onclick="loadGame('stella', 'E.T. - The Extra-Terrestrial (USA).a26')">E.T.</button>
+<button onclick="loadGame('stella', 'Frogger (USA).a26')">Frogger</button>
+<button onclick="loadGame('stella', 'Galaxian (USA).a26')">Galaxian</button>
+<button onclick="loadGame('stella', 'Gremlins (USA).a26')">Gremlins</button>
+<button onclick="loadGame('stella', 'Mario Bros. (USA).a26')">Mario Bros.</button>
+<button onclick="loadGame('stella', 'Pac-Man (USA).a26')">Pac-Man</button>
+<button onclick="loadGame('stella', 'Pitfall! - Pitfall Harry\'s Jungle Adventure (USA).a26')">Pitfall!</button>
+<button onclick="loadGame('stella', 'Space Invaders (USA).a26')">Space Invaders</button>
+
         <div class="system-label">NES</div>
         <button onclick="loadGame('nes', 'nes/Action 52 (USA) (Rev A) (Unl).nes')">Action 52</button>
         <button onclick="loadGame('nes', 'nes/Balloon Fight (USA).nes')">Balloon Fight</button>
@@ -204,7 +214,8 @@ function loadGame(system, url) {
         genesis: 'blastem',
         sega32x: 'picodrive',
         mame: 'mame2003_plus',
-        gb: 'gambatte'
+        gb: 'gambatte',
+        stella: 'stella
     };
 
     // reset globals
