@@ -158,40 +158,37 @@
     
 <div class="menu">
     <div class="system-label">Game Boy</div>
-<button onclick=" loadGame('gb','g*meboy/Bubsy II (USA).gb')">Bubsy II</button>
-<button onclick=" loadGame('gb','g*meboy/Donkey Kong (World) (Rev A) (SGB Enhanced).gb')">Donkey Kong</button>
-<button onclick=" loadGame('gb','g*meboy/Dr. Mario (World).gb')">Dr. Mario</button>
-<button onclick=" loadGame('gb','g*meboy/DuckTales (USA).gb')">DuckTales</button>
-<button onclick=" loadGame('gb','g*meboy/DuckTales 2 (USA).gb')">DuckTales 2</button>
-<button onclick=" loadGame('gb','g*meboy/Felix the Cat (USA, Europe).gb')">Felix the Cat</button>
-<button onclick=" loadGame('gb','g*meboy/Game & Watch Gallery (USA) (Rev A) (SGB Enhanced).gb')">Game & Watch Gallery</button>
-<button onclick=" loadGame('gb','g*meboy/Pac-Man (USA).gb')">Pac-Man</button>
-<button onclick=" loadGame('gb','g*meboy/Pokemon - Blue Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Blue</button>
-<button onclick=" loadGame('gb','g*meboy/Pokemon - Red Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Red</button>
-<button onclick=" loadGame('gb','g*meboy/Pokemon - Yellow Version - Special Pikachu Edition (USA, Europe) (GBC,SGB Enhanced).gb')">Pokémon Yellow</button>
-<button onclick=" loadGame('gb','g*meboy/Super Mario Land (World).gb')">Super Mario Land</button>
-<button onclick=" loadGame('gb','g*meboy/Super Mario Land 2 - 6 Golden Coins (USA, Europe).gb')">Super Mario Land 2 - 6 Golden Coins</button>
-<button onclick=" loadGame('gb','g*meboy/Tetris (World) (Rev A).gb')">Tetris</button>
-<button onclick=" loadGame('gb','g*meboy/Wario Land - Super Mario Land 3 (World).gb')">Wario Land - Super Mario Land 3</button>
-<button onclick=" loadGame('gb','g*meboy/Who Framed Roger Rabbit (USA).gb')">Who Framed Roger Rabbit</button>
+<button onclick="loadGame('gb','g*meboy/Bubsy II (USA).gb')">Bubsy II</button>
+<button onclick="loadGame('gb','g*meboy/Donkey Kong (World) (Rev A) (SGB Enhanced).gb')">Donkey Kong</button>
+<button onclick="loadGame('gb','g*meboy/Dr. Mario (World).gb')">Dr. Mario</button>
+<button onclick="loadGame('gb','g*meboy/DuckTales (USA).gb')">DuckTales</button>
+<button onclick="loadGame('gb','g*meboy/DuckTales 2 (USA).gb')">DuckTales 2</button>
+<button onclick="loadGame('gb','g*meboy/Felix the Cat (USA, Europe).gb')">Felix the Cat</button>
+<button onclick="loadGame('gb','g*meboy/Game & Watch Gallery (USA) (Rev A) (SGB Enhanced).gb')">Game & Watch Gallery</button>
+<button onclick="loadGame('gb','g*meboy/Pac-Man (USA).gb')">Pac-Man</button>
+<button onclick="loadGame('gb','g*meboy/Pokemon - Blue Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Blue</button>
+<button onclick="loadGame('gb','g*meboy/Pokemon - Red Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Red</button>
+<button onclick="loadGame('gb','g*meboy/Pokemon - Yellow Version - Special Pikachu Edition (USA, Europe) (GBC,SGB Enhanced).gb')">Pokémon Yellow</button>
+<button onclick="loadGame('gb','g*meboy/Super Mario Land (World).gb')">Super Mario Land</button>
+<button onclick="loadGame('gb','g*meboy/Super Mario Land 2 - 6 Golden Coins (USA, Europe).gb')">Super Mario Land 2 - 6 Golden Coins</button>
+<button onclick="loadGame('gb','g*meboy/Tetris (World) (Rev A).gb')">Tetris</button>
+<button onclick="loadGame('gb','g*meboy/Wario Land - Super Mario Land 3 (World).gb')">Wario Land - Super Mario Land 3</button>
+<button onclick="loadGame('gb','g*meboy/Who Framed Roger Rabbit (USA).gb')">Who Framed Roger Rabbit</button>
 </div>
         </div>
 
 <script>
 window.EJS_inputConfig = {
-    // Genesis / 32X default keyboard mapping
     'P1 Up': 'arrowup',
     'P1 Down': 'arrowdown',
     'P1 Left': 'arrowleft',
     'P1 Right': 'arrowright',
-    'P1 Button 1': 'z',   // A
-    'P1 Button 2': 'x',   // B
-    'P1 Button 3': 'c',   // C
-    'P1 Start': 'enter',  
+    'P1 Button 1': 'z',
+    'P1 Button 2': 'x',
+    'P1 Button 3': 'c',
+    'P1 Start': 'enter',
     'P1 Select': 'shift'
 };
-
-<script>
 
 function loadGame(system, url) {
     const container = document.getElementById('game-container');
@@ -201,7 +198,6 @@ function loadGame(system, url) {
     // Clear previous game
     gameDiv.innerHTML = '';
 
-    // Map system to EmulatorJS core
     const coreMap = {
         nes: 'fceumm',
         snes: 'snes9x',
@@ -212,42 +208,26 @@ function loadGame(system, url) {
         stella2014: 'stella2014'
     };
 
-    // Reset globals
     delete window.EJS_loaded;
     delete window.EJS_emulator;
     delete window.Module;
 
-    // Configure EmulatorJS
     window.EJS_player = '#game';
     window.EJS_core = coreMap[system];
-
-    // Split path into folder + file
-const lastSlash = url.lastIndexOf('/');
-const folder = url.substring(0, lastSlash + 1);
-const file = url.substring(lastSlash + 1);
-window.EJS_gameUrl = folder + encodeURIComponent(file);
-
+    window.EJS_gameUrl = url; // keep original name, no encoding needed
     window.EJS_pathtodata = 'https://cdn.emulatorjs.org/latest/data/';
     window.EJS_startOnLoaded = true;
-    window.EJS_forceLegacyCores = false; // change to true if using old cores
+    window.EJS_forceLegacyCores = false;
 
-    // Create and load the EmulatorJS loader script
     const script = document.createElement('script');
     script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
     script.onload = () => {
-        // Wait for emulator to load
         const checkLoaded = setInterval(() => {
             if (window.EJS_loaded) {
                 clearInterval(checkLoaded);
-                
-                // Make game fullscreen
                 container.classList.add('fullscreen');
                 closeBtn.style.display = 'block';
-
-                // Scroll to top
                 window.scrollTo({ top: 0, behavior: 'auto' });
-
-                // Close button reloads page
                 closeBtn.onclick = () => location.reload();
             }
         }, 100);
@@ -256,5 +236,6 @@ window.EJS_gameUrl = folder + encodeURIComponent(file);
     document.body.appendChild(script);
 }
 </script>
+
 </body>
 </html>
