@@ -191,13 +191,16 @@ window.EJS_inputConfig = {
     'P1 Select': 'shift'
 };
 
+<script>
 function loadGame(system, url) {
     const container = document.getElementById('game-container');
+    const gameDiv = document.getElementById('game');
     const closeBtn = document.getElementById('close-game-btn');
-    
-    // Clear previous game
-    document.getElementById('game').innerHTML = '';
 
+    // Clear previous game
+    gameDiv.innerHTML = '';
+
+    // Map system to EmulatorJS core
     const coreMap = {
         nes: 'fceumm',
         snes: 'snes9x',
@@ -208,30 +211,39 @@ function loadGame(system, url) {
         stella2014: 'stella2014'
     };
 
-    // reset globals
+    // Reset globals
     delete window.EJS_loaded;
     delete window.EJS_emulator;
     delete window.Module;
 
-window.EJS_player = '#game';
-window.EJS_core = coreMap[system];
-window.EJS_gameUrl = encodeURI(url);
+    // Configure EmulatorJS
+    window.EJS_player = '#game';
+    window.EJS_core = coreMap[system];
+    
+    // Encode URL properly for GitHub Pages
+    window.EJS_gameUrl = encodeURIComponent(url);
 
-window.EJS_pathtodata = 'https://cdn.emulatorjs.org/latest/data/';
-window.EJS_startOnLoaded = true;
+    window.EJS_pathtodata = 'https://cdn.emulatorjs.org/latest/data/';
+    window.EJS_startOnLoaded = true;
+    window.EJS_forceLegacyCores = false; // change to true if using old cores
 
-// ⭐ IMPORTANT — prevents missing legacy core download
-window.EJS_forceLegacyCores = false;
-
-script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+    // Create and load the EmulatorJS loader script
+    const script = document.createElement('script');
+    script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
     script.onload = () => {
+        // Wait for emulator to load
         const checkLoaded = setInterval(() => {
             if (window.EJS_loaded) {
                 clearInterval(checkLoaded);
-
+                
+                // Make game fullscreen
                 container.classList.add('fullscreen');
                 closeBtn.style.display = 'block';
-                window.scrollTo({ top: 0, behavior: 'instant' });
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'auto' });
+
+                // Close button reloads page
                 closeBtn.onclick = () => location.reload();
             }
         }, 100);
@@ -240,6 +252,5 @@ script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
     document.body.appendChild(script);
 }
 </script>
-
 </body>
 </html>
