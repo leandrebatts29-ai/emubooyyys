@@ -5,189 +5,190 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Old Vidja G*mes</title>
 <style>
-    body { 
-        background: #1a1a1a; 
-        color: white; 
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-        text-align: center; 
-        margin: 0;
-        padding: 20px;
-    }
-    h1 { color: #ffcc00; text-shadow: 2px 2px #000; }
+body { 
+    background: #1a1a1a; 
+    color: white; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    text-align: center; 
+    margin: 0;
+    padding: 20px;
+}
 
-    /* Game container */
-    #game-container { 
-        width: 100%; 
-        max-width: 800px; 
-        height: 600px; 
-        margin: 20px auto; 
-        background: #000; 
-        border: 4px solid #333;
-        border-radius: 8px;
-        overflow: hidden;
-    }
+h1 { color: #ffcc00; text-shadow: 2px 2px #000; }
 
-    #game-container.fullscreen {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 800px;
-        height: 600px;
-        background: #000;
-        border: 4px solid #333;
-        border-radius: 8px;
-        z-index: 9999;
-        overflow: hidden;
-    }
+#game-container { 
+    width: 100%; 
+    max-width: 800px; 
+    height: 600px; 
+    margin: 20px auto; 
+    background: #000; 
+    border: 4px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    touch-action: none; /* Important for touchscreen + mouse */
+}
 
-    /* Close button */
-    #close-game-btn {
-        display: none;
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        z-index: 10001;
-        padding: 8px 12px;
-        font-weight: bold;
-        background: #ffcc00;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    #close-game-btn:hover { background: #ffc000; }
+#game-container.fullscreen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 600px;
+    background: #000;
+    border: 4px solid #333;
+    border-radius: 8px;
+    z-index: 9999;
+    overflow: hidden;
+}
 
-    /* Menu grid */
-    .menu { 
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 10px;
-        max-width: 1000px;
-        margin: 20px auto;
-        padding: 10px;
-    }
-    button { 
-        padding: 12px; 
-        background: #444; 
-        color: white; 
-        border: none; 
-        border-radius: 4px; 
-        cursor: pointer; 
-        transition: background 0.2s;
-        font-weight: bold;
-    }
-    button:hover { background: #666; border-bottom: 2px solid #ffcc00; }
-    button:active { background: #222; }
+#close-game-btn {
+    display: none;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 10001;
+    padding: 8px 12px;
+    font-weight: bold;
+    background: #ffcc00;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#close-game-btn:hover { background: #ffc000; }
 
-    .system-label { 
-        grid-column: 1 / -1; 
-        text-align: left; 
-        border-bottom: 1px solid #444; 
-        margin-top: 20px;
-        color: #aaa;
-        font-size: 0.9em;
-        text-transform: uppercase;
-    }
+.menu { 
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 10px;
+}
 
-    p.description {
-        color: #ccc; 
-        font-size: 1em; 
-        max-width: 800px; 
-        margin: 10px auto;
-    }
+button { 
+    padding: 12px; 
+    background: #444; 
+    color: white; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    transition: background 0.2s;
+    font-weight: bold;
+}
+button:hover { background: #666; border-bottom: 2px solid #ffcc00; }
+button:active { background: #222; }
+
+.system-label { 
+    grid-column: 1 / -1; 
+    text-align: left; 
+    border-bottom: 1px solid #444; 
+    margin-top: 20px;
+    color: #aaa;
+    font-size: 0.9em;
+    text-transform: uppercase;
+}
+
+p.description {
+    color: #ccc; 
+    font-size: 1em; 
+    max-width: 800px; 
+    margin: 10px auto;
+}
 </style>
 </head>
 <body>
 
 <h1>Peak g*mes that outage me by several decades</h1>
 <p class="description">
-    Old retro g*mes that I [LEGALLY PURCHASED AND DUMPED], that you can play! Just click a game to play. Click the fullscreen button for a better experience. Genesis and 32x aren't here because they suck, just go to the repo for the ROMs: https://github.com/leandrebatts29-ai/emubooyyys, and go to the EmulatorJS demo to play them: https://emulatorjs.github.io/EmulatorJS/
+    Old retro g*mes that I [LEGALLY PURCHASED AND DUMPED], that you can play! Just click a game to play. Click the fullscreen button for a better experience. Genesis and 32x aren't here because they suck, just go to the repo for the ROMs: 
+    <a href="https://github.com/leandrebatts29-ai/emubooyyys" target="_blank">GitHub Repo</a>, and EmulatorJS demo: 
+    <a href="https://emulatorjs.github.io/EmulatorJS/" target="_blank">EmulatorJS Demo</a>
 </p>
 
-<!-- Close button -->
 <button id="close-game-btn">Close Game</button>
 
-<!-- Game display -->
 <div id="game-container">
     <div id="game">
         <p style="padding-top: 250px; color: #666;">Select a g*me to play ancient peak</p>
     </div>
 </div>
 
-<!-- Menu example (add your other systems as needed) -->
+<!-- Menu -->
+<div class="menu">
+    <div class="system-label">Arcade</div>
+    <button onclick="loadGame('mame','arcade/frogger.zip')">Frogger</button>
+    <button onclick="loadGame('mame','arcade/galaga.zip')">Galaga</button>
+    <button onclick="loadGame('mame','arcade/invaders.zip')">Space Invaders</button>
+    <button onclick="loadGame('mame','arcade/pacman.zip')">Pac-Man</button>
+    <button onclick="loadGame('mame','arcade/sonic.zip')">SegaSonic the Hedgehog</button>
+</div>
 
-        <div class="system-label">Arcade</div>
-        <button onclick="loadGame('mame', 'arcade/frogger.zip')">Frogger</button>
-        <button onclick="loadGame('mame', 'arcade/galaga.zip')">Galaga</button>
-        <button onclick="loadGame('mame', 'arcade/invaders.zip')">Space Invaders</button>
-        <button onclick="loadGame('mame', 'arcade/pacman.zip')">Pac-Man</button>
-        <button onclick="loadGame('mame', 'arcade/sonic.zip')">SegaSonic the Hedgehog</button>
+<div class="menu">
+    <div class="system-label">NES</div>
+    <button onclick="loadGame('nes','nes/Action 52 (USA) (Rev A) (Unl).nes')">Action 52</button>
+    <button onclick="loadGame('nes','nes/Balloon Fight (USA).nes')">Balloon Fight</button>
+    <button onclick="loadGame('nes','nes/Donkey Kong Classics (USA, Europe).nes')">Donkey Kong Classics</button>
+    <button onclick="loadGame('nes','nes/DuckTales (USA).nes')">DuckTales</button>
+    <button onclick="loadGame('nes','nes/Kirby_s Adventure (USA).nes')">Kirby’s Adventure</button>
+    <button onclick="loadGame('nes','nes/Legend of Zelda, The (USA).nes')">The Legend of Zelda</button>
+    <button onclick="loadGame('nes','nes/Mario Bros. (World).nes')">Mario Bros.</button>
+    <button onclick="loadGame('nes','nes/Mickey Mousecapade (USA).nes')">Mickey Mousecapade</button>
+    <button onclick="loadGame('nes','nes/Pac-Man (USA) (Namco).nes')">Pac-Man</button>
+    <button onclick="loadGame('nes','nes/Super Mario Bros. (World).nes')">Super Mario Bros.</button>
+    <button onclick="loadGame('nes','nes/Super Mario Bros. 2 (USA).nes')">Super Mario Bros. 2</button>
+    <button onclick="loadGame('nes','nes/Super Mario Bros. 3 (USA).nes')">Super Mario Bros. 3</button>
+    <button onclick="loadGame('nes','nes/Tetris (USA).nes')">Tetris</button>
+    <button onclick="loadGame('nes','nes/Zelda II - The Adventure of Link (USA).nes')">Zelda II: The Adventure of Link</button>
+</div>
 
-        <div class="system-label">NES</div>
-        <button onclick="loadGame('nes', 'nes/Action 52 (USA) (Rev A) (Unl).nes')">Action 52</button>
-        <button onclick="loadGame('nes', 'nes/Balloon Fight (USA).nes')">Balloon Fight</button>
-        <button onclick="loadGame('nes', 'nes/Donkey Kong Classics (USA, Europe).nes')">Donkey Kong Classics</button>
-        <button onclick="loadGame('nes', 'nes/DuckTales (USA).nes')">DuckTales</button>
-        <button onclick="loadGame('nes', 'nes/Kirby_s Adventure (USA).nes')">Kirby’s Adventure</button>
-        <button onclick="loadGame('nes', 'nes/Legend of Zelda, The (USA).nes')">The Legend of Zelda</button>
-        <button onclick="loadGame('nes', 'nes/Mario Bros. (World).nes')">Mario Bros.</button>
-        <button onclick="loadGame('nes', 'nes/Mickey Mousecapade (USA).nes')">Mickey Mousecapade</button>
-        <button onclick="loadGame('nes', 'nes/Pac-Man (USA) (Namco).nes')">Pac-Man</button>
-        <button onclick="loadGame('nes', 'nes/Super Mario Bros. (World).nes')">Super Mario Bros.</button>
-        <button onclick="loadGame('nes', 'nes/Super Mario Bros. 2 (USA).nes')">Super Mario Bros. 2</button>
-        <button onclick="loadGame('nes', 'nes/Super Mario Bros. 3 (USA).nes')">Super Mario Bros. 3</button>
-        <button onclick="loadGame('nes', 'nes/Tetris (USA).nes')">Tetris</button>
-        <button onclick="loadGame('nes', 'nes/Zelda II - The Adventure of Link (USA).nes')">Zelda II: The Adventure of Link</button>
-    </div>    
+<div class="menu">
+    <div class="system-label">Super Nintendo</div>
+    <button onclick="loadGame('snes','snes/Donkey Kong Country (USA) (Rev 2).sfc')">Donkey Kong Country</button>
+    <button onclick="loadGame('snes','snes/Donkey Kong Country 2 - Diddy_s Kong Quest (USA) (En,Fr) (Rev 1).sfc')">Donkey Kong Country 2: Diddy's Kong Quest</button>
+    <button onclick="loadGame('snes','snes/Donkey Kong Country 3 - Dixie Kong_s Double Trouble! (USA) (En,Fr).sfc')">Donkey Kong Country 3: Dixie Kong's Double Trouble</button>
+    <button onclick="loadGame('snes','snes/Kirby_s Avalanche (USA).sfc')">Kirby's Avalanche</button>
+    <button onclick="loadGame('snes','snes/Kirby_s Dream Course (USA).sfc')">Kirby's Dream Course</button>
+    <button onclick="loadGame('snes','snes/Kirby_s Dream Land 3 (USA).sfc')">Kirby's Dream Land 3</button>
+    <button onclick="loadGame('snes','snes/Mario Is Missing! (USA).sfc')">Mario is Missing!</button>
+    <button onclick="loadGame('snes','snes/Super Mario All-Stars (USA).sfc')">Super Mario All-Stars</button>
+    <button onclick="loadGame('snes','snes/Super Mario Kart (USA).sfc')">Super Mario Kart</button>
+    <button onclick="loadGame('snes','snes/Super Mario RPG - Legend of the Seven Stars (USA).sfc')">Super Mario RPG: Legend of the Seven Stars</button>
+    <button onclick="loadGame('snes','snes/Super Mario World (USA).sfc')">Super Mario World</button>
+    <button onclick="loadGame('snes','snes/Super Mario World 2 - Yoshi_s Island (USA).sfc')">Super Mario World 2 - Yoshi's Island</button>
+</div>
 
-  <div class="menu">
-        <div class="system-label">Super Nintendo</div>
-        <button onclick="loadGame('snes', 'snes/Donkey Kong Country (USA) (Rev 2).sfc')">Donkey Kong Country</button>
-        <button onclick="loadGame('snes', 'snes/Donkey Kong Country 2 - Diddy_s Kong Quest (USA) (En,Fr) (Rev 1).sfc')">Donkey Kong Country 2: Diddy's Kong Quest</button>
-        <button onclick="loadGame('snes', 'snes/Donkey Kong Country 3 - Dixie Kong_s Double Trouble! (USA) (En,Fr).sfc')">Donkey Kong Country 3: Dixie Kong's Double Trouble</button>
-        <button onclick="loadGame('snes', 'snes/Kirby_s Avalanche (USA).sfc')">Kirby's Avalanche</button>
-        <button onclick="loadGame('snes', 'snes/Kirby_s Dream Course (USA).sfc')">Kirby's Dream Course</button>
-        <button onclick="loadGame('snes', 'snes/Kirby_s Dream Land 3 (USA).sfc')">Kirby's Dream Land 3</button>
-        <button onclick="loadGame('snes', 'snes/Mario Is Missing! (USA).sfc')">Mario is Missing!</button>
-        <button onclick="loadGame('snes', 'snes/Super Mario All-Stars (USA).sfc')">Super Mario All-Stars</button>
-        <button onclick="loadGame('snes', 'snes/Super Mario Kart (USA).sfc')">Super Mario Kart</button>
-        <button onclick="loadGame('snes', 'snes/Super Mario RPG - Legend of the Seven Stars (USA).sfc')">Super Mario RPG: Legend of the Seven Stars</button>
-        <button onclick="loadGame('snes', 'snes/Super Mario World (USA).sfc')">Super Mario World</button>
-        <button onclick="loadGame('snes', 'snes/Super Mario World 2 - Yoshi_s Island (USA).sfc')">Super Mario World 2 - Yoshi's Island</button>
-  </div>
-    
 <div class="menu">
     <div class="system-label">Game Boy</div>
-<button onclick="loadGame('gb','g*meboy/Bubsy II (USA).gb')">Bubsy II</button>
-<button onclick="loadGame('gb','g*meboy/Donkey Kong (World) (Rev A) (SGB Enhanced).gb')">Donkey Kong</button>
-<button onclick="loadGame('gb','g*meboy/Dr. Mario (World).gb')">Dr. Mario</button>
-<button onclick="loadGame('gb','g*meboy/DuckTales (USA).gb')">DuckTales</button>
-<button onclick="loadGame('gb','g*meboy/DuckTales 2 (USA).gb')">DuckTales 2</button>
-<button onclick="loadGame('gb','g*meboy/Felix the Cat (USA, Europe).gb')">Felix the Cat</button>
-<button onclick="loadGame('gb','g*meboy/Game & Watch Gallery (USA) (Rev A) (SGB Enhanced).gb')">Game & Watch Gallery</button>
-<button onclick="loadGame('gb','g*meboy/Pac-Man (USA).gb')">Pac-Man</button>
-<button onclick="loadGame('gb','g*meboy/Pokemon - Blue Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Blue</button>
-<button onclick="loadGame('gb','g*meboy/Pokemon - Red Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Red</button>
-<button onclick="loadGame('gb','g*meboy/Pokemon - Yellow Version - Special Pikachu Edition (USA, Europe) (GBC,SGB Enhanced).gb')">Pokémon Yellow</button>
-<button onclick="loadGame('gb','g*meboy/Super Mario Land (World).gb')">Super Mario Land</button>
-<button onclick="loadGame('gb','g*meboy/Super Mario Land 2 - 6 Golden Coins (USA, Europe).gb')">Super Mario Land 2 - 6 Golden Coins</button>
-<button onclick="loadGame('gb','g*meboy/Tetris (World) (Rev A).gb')">Tetris</button>
-<button onclick="loadGame('gb','g*meboy/Wario Land - Super Mario Land 3 (World).gb')">Wario Land - Super Mario Land 3</button>
-<button onclick="loadGame('gb','g*meboy/Who Framed Roger Rabbit (USA).gb')">Who Framed Roger Rabbit</button>
+    <button onclick="loadGame('gb','g*meboy/Bubsy II (USA).gb')">Bubsy II</button>
+    <button onclick="loadGame('gb','g*meboy/Donkey Kong (World) (Rev A) (SGB Enhanced).gb')">Donkey Kong</button>
+    <button onclick="loadGame('gb','g*meboy/Dr. Mario (World).gb')">Dr. Mario</button>
+    <button onclick="loadGame('gb','g*meboy/DuckTales (USA).gb')">DuckTales</button>
+    <button onclick="loadGame('gb','g*meboy/DuckTales 2 (USA).gb')">DuckTales 2</button>
+    <button onclick="loadGame('gb','g*meboy/Felix the Cat (USA, Europe).gb')">Felix the Cat</button>
+    <button onclick="loadGame('gb','g*meboy/Game & Watch Gallery (USA) (Rev A) (SGB Enhanced).gb')">Game & Watch Gallery</button>
+    <button onclick="loadGame('gb','g*meboy/Pac-Man (USA).gb')">Pac-Man</button>
+    <button onclick="loadGame('gb','g*meboy/Pokemon - Blue Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Blue</button>
+    <button onclick="loadGame('gb','g*meboy/Pokemon - Red Version (USA, Europe) (SGB Enhanced).gb')">Pokémon Red</button>
+    <button onclick="loadGame('gb','g*meboy/Pokemon - Yellow Version - Special Pikachu Edition (USA, Europe) (GBC,SGB Enhanced).gb')">Pokémon Yellow</button>
+    <button onclick="loadGame('gb','g*meboy/Super Mario Land (World).gb')">Super Mario Land</button>
+    <button onclick="loadGame('gb','g*meboy/Super Mario Land 2 - 6 Golden Coins (USA, Europe).gb')">Super Mario Land 2 - 6 Golden Coins</button>
+    <button onclick="loadGame('gb','g*meboy/Tetris (World) (Rev A).gb')">Tetris</button>
+    <button onclick="loadGame('gb','g*meboy/Wario Land - Super Mario Land 3 (World).gb')">Wario Land - Super Mario Land 3</button>
+    <button onclick="loadGame('gb','g*meboy/Who Framed Roger Rabbit (USA).gb')">Who Framed Roger Rabbit</button>
 </div>
-        </div>
 
 <script>
 window.EJS_inputConfig = {
-    'P1 Up': 'arrowup',
-    'P1 Down': 'arrowdown',
-    'P1 Left': 'arrowleft',
-    'P1 Right': 'arrowright',
-    'P1 Button 1': 'z',
-    'P1 Button 2': 'x',
-    'P1 Button 3': 'c',
-    'P1 Start': 'enter',
-    'P1 Select': 'shift'
+    'P1 Up':'arrowup',
+    'P1 Down':'arrowdown',
+    'P1 Left':'arrowleft',
+    'P1 Right':'arrowright',
+    'P1 Button 1':'z',
+    'P1 Button 2':'x',
+    'P1 Button 3':'c',
+    'P1 Start':'enter',
+    'P1 Select':'shift'
 };
 
 function loadGame(system, url) {
@@ -198,6 +199,7 @@ function loadGame(system, url) {
     // Clear previous game
     gameDiv.innerHTML = '';
 
+    // Core mapping
     const coreMap = {
         nes: 'fceumm',
         snes: 'snes9x',
@@ -208,17 +210,20 @@ function loadGame(system, url) {
         stella2014: 'stella2014'
     };
 
+    // Reset globals
     delete window.EJS_loaded;
     delete window.EJS_emulator;
     delete window.Module;
 
+    // Configure EmulatorJS
     window.EJS_player = '#game';
     window.EJS_core = coreMap[system];
-    window.EJS_gameUrl = url; // keep original name, no encoding needed
+    window.EJS_gameUrl = url;
     window.EJS_pathtodata = 'https://cdn.emulatorjs.org/latest/data/';
     window.EJS_startOnLoaded = true;
     window.EJS_forceLegacyCores = false;
 
+    // Load EmulatorJS
     const script = document.createElement('script');
     script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
     script.onload = () => {
@@ -227,12 +232,11 @@ function loadGame(system, url) {
                 clearInterval(checkLoaded);
                 container.classList.add('fullscreen');
                 closeBtn.style.display = 'block';
-                window.scrollTo({ top: 0, behavior: 'auto' });
+                window.scrollTo({ top:0, behavior:'auto' });
                 closeBtn.onclick = () => location.reload();
             }
         }, 100);
     };
-
     document.body.appendChild(script);
 }
 </script>
